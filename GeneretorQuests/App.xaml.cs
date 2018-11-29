@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GeneretorQuests.ViewModels;
+using GeneretorQuests.Views;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,18 @@ namespace GeneretorQuests
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            // base.OnStartup(e);
+            var dialog = new DialogManager();
+            //dialog.Register<MyViewModel, FAQ>();
+            dialog.Register<QuestViewModel, ReadyQuests>();
+            var mainWindow = new FAQ()
+            {
+                DataContext = new MyViewModel(dialog)
+            };
+            mainWindow.Show();
+            
+        }
     }
 }

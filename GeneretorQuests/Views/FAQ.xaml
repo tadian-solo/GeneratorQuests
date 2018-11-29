@@ -1,0 +1,75 @@
+﻿<Window x:Class="GeneretorQuests.FAQ"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GeneretorQuests"
+        mc:Ignorable="d"
+        Title="FAQ" Height="400" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Control.FontFamily" Value="Verdana" />
+            <Setter Property="Control.Background" Value="MediumSlateBlue" />
+            <Setter Property="Control.Foreground" Value="White" />
+            <Setter Property="Control.Margin" Value="10" />
+        </Style>
+    </Window.Resources>
+    <Grid >
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\1.jpg"
+                    Stretch="Fill">
+            </ImageBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Content="Войти в аккаунт" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50"  Margin="15,60,15.8,230.8"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Мои квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,120,15.8,172.8"/>
+        <Button  Command="{Binding OpenReadyQuests}" Grid.Column="0" Grid.Row="0" Content="Готовые квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  MaxHeight="50" Margin="15,180,15.8,111.8"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,240,15.8,50.8"/>
+        <ScrollViewer Grid.Column="1" Grid.Row="0">
+            <TextBlock Grid.Column="1" Grid.Row="0"
+                    FontFamily="Times New Roman"
+                    FontSize="14"
+                    TextWrapping="Wrap"
+                    TextAlignment="Justify"
+                    Margin="15"
+                   BaselineOffset="10">
+      <Run FontSize="25" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva">  ЧаВо: </Run>  <LineBreak />     
+    <Run FontSize="20" Foreground="Blue" FontWeight="Bold" FontFamily="Monotype Corsiva">*Что такое «домашний квест»?</Run><LineBreak />
+ Домашний квест — способ оригинально и весело подарить любой подарок, превратив это в интересную, захватывающую игру.<LineBreak />  
+            Почему такое название? Вообще, квест — это вид игры с различными шифрами и загадками, которые по цепочке приводят к главному призу.<LineBreak />  
+Основная идея: сюрприз прячется в укромном месте, а игроку вручается некое послание-загадка-указание с подсказкой, где искать следующую записку. <LineBreak />  
+            Решение всех загадок приводит игрока к месту, где находится подарок. Самый простой вариант этого развлечения — квест в помещении.
+  <LineBreak /> <Run FontSize="20" Foreground="Blue" FontWeight="Bold" FontFamily="Monotype Corsiva">*Для кого можно провести квест?</Run><LineBreak />
+Квест - это отличный способ развлечь аудиторию любого возраста и разнообразить любое мероприятие!<LineBreak />  
+            В зависимости от возрастных рекомендаций квеста, в нем могут принять участие как малыши 3-5 лет, так и взрослые бабушки и дедушки.<LineBreak />  
+            Играть любят все! Мы предлагаем сценарии квестов как для детей, так и для взрослых. <LineBreak />  
+            А также в нашей коллекции вы найдете эксклюзивные семейные квесты для больших разновозрастных компаний.<LineBreak />  
+<Run FontSize="20" Foreground="Blue" FontWeight="Bold" FontFamily="Monotype Corsiva">*На какое событие можно провести квест?</Run><LineBreak />
+Провести квест можно практически на любой праздник, во время любого торжества или просто без повода ради развлечения родных и близких. <LineBreak />  
+            Самый яркий пример - это сценарий квеста на День рождения или на Новый год, когда игрок должен найти свой спрятанный подарок.<LineBreak />  
+   <Run FontSize="20" Foreground="Blue" FontWeight="Bold" FontFamily="Monotype Corsiva">*Сколько человек может участвовать в игре</Run><LineBreak />  
+Большинство наших квестов подразумевает участие от 1 до 15 человек.<LineBreak />  
+            Кроме этого, многие наши квесты дают возможность устроить командные соревнования, например, квест для детей дома, когда участники делятся на две команды и проходят «параллельные» цепочки задач на скорость. <LineBreak />  
+   <Run FontSize="20" Foreground="Blue" FontWeight="Bold" FontFamily="Monotype Corsiva">*Где можно провести квест?</Run><LineBreak />  
+Набор локаций для проведения квестов очень широк.<LineBreak />  
+            Хоть самым популярным и является квест дома или квест по квартире, провести игру можно практически в любом месте: загородный дом, дача, приусадебный участок, лес, парк, турбаза, офис, детский сад, школа или ресторан, – все зависит от ваших пожеланий и назначения конкретного квеста.<LineBreak />  
+  <Run FontSize="20" Foreground="Blue" FontWeight="Bold" FontFamily="Monotype Corsiva">*Сколько заданий должно быть в квесте?</Run><LineBreak />  
+Оптимальное количество этапов – от 6 до 10: большее количество может сделать квест утомительным, а меньшее — слишком скоротечным.<LineBreak />  
+            Но это, конечно же, общая рекомендация — возможно, у вас получится замечательный квест, состоящий из 5 этапов (если задания сложные) или, наоборот, из 15 этапов.<LineBreak />  
+ <Run FontSize="17" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva"> Квест можно сделать ещё более приятным и увлекательным, если по ходу его выполнения будет несколько подарков  
+     (пусть задания сопровождаются шоколадками или мелкими сувенирами).
+       </Run></TextBlock>
+        </ScrollViewer>
+        <Image Grid.Column="0"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled.png"
+                    Stretch="Fill"
+             HorizontalAlignment="Stretch" Margin="33,-30,36.8,290.4" VerticalAlignment="Stretch" MaxHeight="100" />
+    </Grid>
+</Window>
+

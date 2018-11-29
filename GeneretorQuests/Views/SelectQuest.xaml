@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="GeneretorQuests.Views.SelectQuest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GeneretorQuests.Views"
+        mc:Ignorable="d"
+         Height="400" Width="800">
+    <Grid >
+
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\1.jpg"
+                    Stretch="Fill">
+            </ImageBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Content="Войти в аккаунт" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50"  Margin="15,60,15.8,230.8"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Мои квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,120,15.8,172.8"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Готовые квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  MaxHeight="50" Margin="15,180,15.8,111.8"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,240,15.8,50.8"/>
+        <WrapPanel Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedQuest}" Orientation="Horizontal" Margin="0.2,50,-0.4,239.4">
+            <TextBlock  
+ Text="{Binding Status, StringFormat= Статус: {0} }">
+            </TextBlock>
+            <TextBlock   
+ Text="{Binding Number_of_questions, StringFormat= Количество вопросов: {0}}">
+            </TextBlock>
+            <TextBlock  
+ Text="{Binding Thematics, StringFormat= Тематика: {0}}">
+            </TextBlock>
+            <TextBlock   
+ Text="{Binding Level_name, StringFormat= Уровень сложности: {0}}">
+            </TextBlock>
+            <TextBlock  
+ Text="{Binding Autor_name, StringFormat= Автор: {0}}">
+            </TextBlock>
+            <TextBlock  
+ Text="{Binding Date, StringFormat= Дата добавления: {0}}">
+            </TextBlock>
+
+        </WrapPanel>
+        <TextBlock Grid.Column="1" Grid.Row="0"  FontSize="23" Foreground="MediumSlateBlue" 
+ Text="Вопросы в квесте:" Margin="0.2,131,183.6,35.4"/>
+        <TextBlock Grid.Column="1" Grid.Row="0"
+                   FontSize="25"
+                    TextWrapping="Wrap"
+                    TextAlignment="Justify"
+                    Margin="163.2,10,9.6,320.4"
+                   BaselineOffset="10"
+                   Foreground="MediumSlateBlue" 
+                   FontWeight="Bold" 
+                   FontFamily="Monotype Corsiva"
+            Text="{Binding SelectedQuest.Id_quest, StringFormat=Квест № {0}}">
+        </TextBlock>
+        <DataGrid SelectedItem="{Binding SelectedRiddle}"  Name="riddls" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="0.2,162,9.6,50.4" ItemsSource="{Binding SelectedQuest.Riddle}" AutoGenerateColumns="False">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Текст" Binding="{Binding Text}" />
+                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                <DataGridTextColumn Header="Ответ" Binding="{Binding Answer_name}" />
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
+                <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_name}" />
+                <DataGridTextColumn Header="Автор" Binding="{Binding Autor_name}" />
+                <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_name}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Image Grid.Column="0"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled.png"
+                    Stretch="Fill"
+             HorizontalAlignment="Stretch" Margin="33,-30,36.8,290.4" VerticalAlignment="Stretch" MaxHeight="100" />
+        <Button Content="Редактировать" Grid.Column="1" HorizontalAlignment="Left" Margin="103.2,335,0,0" VerticalAlignment="Top" Width="103"/>
+        <Button Content="Добавить" Grid.Column="1" HorizontalAlignment="Left" Margin="10.2,335,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="224.2,335,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Сохранить" Grid.Column="1" HorizontalAlignment="Left" Margin="320.2,335,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Сохранить как" Grid.Column="1" HorizontalAlignment="Left" Margin="413.2,335,0,0" VerticalAlignment="Top" Width="106"/>
+    </Grid>
+</UserControl>
