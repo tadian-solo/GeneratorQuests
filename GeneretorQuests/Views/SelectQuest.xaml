@@ -4,8 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeneretorQuests.Views"
-        mc:Ignorable="d"
-         Height="400" Width="800">
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+         >
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Control.FontFamily" Value="Verdana" />
+            <Setter Property="Control.Background" Value="MediumSlateBlue" />
+            <Setter Property="Control.Foreground" Value="White" />
+            <Setter Property="Control.Margin" Value="10" />
+        </Style>
+        <Style TargetType="TextBlock">
+
+            <Setter Property="Control.FontFamily" Value="Monotype Corsiva" />
+            <Setter Property="Control.FontSize" Value="20" />
+            <Setter Property="Control.Foreground" Value="Blue" />
+            <Setter Property="Control.Margin" Value="2" />
+            <Setter Property="Control.FontWeight" Value="Bold" />
+        </Style>
+    </UserControl.Resources>
     <Grid >
 
         <Grid.Background>
@@ -59,7 +75,7 @@
                    FontFamily="Monotype Corsiva"
             Text="{Binding SelectedQuest.Id_quest, StringFormat=Квест № {0}}">
         </TextBlock>
-        <DataGrid SelectedItem="{Binding SelectedRiddle}"  Name="riddls" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="0.2,162,9.6,50.4" ItemsSource="{Binding SelectedQuest.Riddle}" AutoGenerateColumns="False">
+        <DataGrid SelectedItem="{Binding SelectedRiddle}"  Name="riddls" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="0.6,162,10,70" ItemsSource="{Binding SelectedQuest.Riddle}" AutoGenerateColumns="False">
 
             <DataGrid.Columns>
 

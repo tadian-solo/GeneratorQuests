@@ -14,7 +14,7 @@ namespace GeneretorQuests.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public DBRepos rep;
         private QuestModel selectedQuest;
-        private RiddleModel selectedRiddle;
+       // private RiddleModel selectedRiddle;
 
         private readonly IDialogManager _dialogManager;
         public QuestViewModel(IDialogManager dialogManager)
@@ -24,7 +24,7 @@ namespace GeneretorQuests.ViewModels
             rep = new DBRepos();
             Quests = GetAllQuests();
         }
-        private ICommand openSelectRiddle;
+        /*private ICommand openSelectRiddle;
         public ICommand OpenSelectRiddle
         {
             get
@@ -32,7 +32,7 @@ namespace GeneretorQuests.ViewModels
                 if (openSelectRiddle == null) openSelectRiddle = new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle);
                 return openSelectRiddle;
             }
-        }
+        }*/
 
         private ObservableCollection<QuestModel> _quests = null;
         public ObservableCollection<QuestModel> Quests
@@ -58,10 +58,37 @@ namespace GeneretorQuests.ViewModels
             {
                 selectedQuest = value;
                 this.PropertyChanged(this, new PropertyChangedEventArgs("SelectedQuest"));
+                
+            
             }
 
         }
-        public RiddleModel SelectedRiddle
+        private RelayCommand openSelectQuest;
+        public RelayCommand OpenSelectQuest
+        {
+            get
+            {
+                return openSelectQuest ??
+                      (openSelectQuest = new RelayCommand(obj =>new OpenSelectQuestCommand(_dialogManager, SelectedQuest).Execute(obj),
+                      (obj) => SelectedQuest != null));
+            }
+            
+        }
+        /*private OpenSelectQuestCommand openSelectQuest;
+        public OpenSelectQuestCommand OpenSelectQuest
+        {
+            get
+            {
+                if (openSelectQuest==null) openSelectQuest = new OpenSelectQuestCommand(_dialogManager, SelectedQuest);
+                if (openSelectQuest.qm != SelectedQuest) openSelectQuest.qm= SelectedQuest;
+                    return openSelectQuest;
+            }
+            set
+            {
+                if (openSelectQuest.qm != SelectedQuest) openSelectQuest.qm = SelectedQuest;
+            }
+        }*/
+        /*public RiddleModel SelectedRiddle
         {
             get { return selectedRiddle; }
             set
@@ -70,7 +97,7 @@ namespace GeneretorQuests.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs("SelectedRiddle"));
             }
 
-        }
+        }*/
         /*public QuestViewModel()
         {
 

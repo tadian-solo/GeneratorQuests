@@ -21,6 +21,7 @@ namespace GeneretorQuests
             var dialog = new DialogManager();
             //dialog.Register<MyViewModel, FAQ>();
             dialog.Register<QuestViewModel, ReadyQuests>();
+            dialog.Register<SelectQuestViewModel, SelectQuest>();
             var mainWindow = new FAQ()
             {
                 DataContext = new MyViewModel(dialog)

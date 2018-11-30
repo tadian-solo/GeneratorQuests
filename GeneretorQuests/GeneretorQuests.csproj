@@ -84,6 +84,7 @@
     <Compile Include="Models\Entities\Type_of_question.cs" />
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="ViewModels\Commands\OpenReadyQuestsCommand.cs" />
+    <Compile Include="ViewModels\Commands\OpenSelectQuestCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenSelectRiddleCommand.cs" />
     <Compile Include="ViewModels\DialogManager.cs" />
     <Compile Include="ViewModels\DTO\QuestModel.cs" />

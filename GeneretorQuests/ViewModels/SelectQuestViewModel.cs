@@ -1,5 +1,6 @@
 ﻿using GeneretorQuests.Models;
 using GeneretorQuests.Models.Repository;
+using GeneretorQuests.ViewModels.Commands;
 using GeneretorQuests.ViewModels.DTO;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace GeneretorQuests.ViewModels
 {
    public class SelectQuestViewModel: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private readonly IDialogManager _dialogManager;
         public DBRepos rep;
         private QuestModel selectedQuest;
         private RiddleModel selectedRiddle;
@@ -37,8 +40,22 @@ namespace GeneretorQuests.ViewModels
             }
 
         }
-        public SelectQuestViewModel()
+
+        private ICommand openSelectRiddle;
+        public ICommand OpenSelectRiddle
         {
+            get
+            {
+                if (openSelectRiddle == null) openSelectRiddle = new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle);
+                return openSelectRiddle;
+            }
+        }
+
+        public SelectQuestViewModel(IDialogManager d, QuestModel q)
+        {
+            _dialogManager = d;
+            rep = new DBRepos();
+            selectedQuest = q;
             
         }
 

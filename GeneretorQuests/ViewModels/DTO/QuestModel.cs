@@ -27,6 +27,8 @@ namespace GeneretorQuests.ViewModels.DTO
         public DateTime Date { get; set; }
         public ObservableCollection<RiddleModel> Riddle { get; set; }
 
+       
+
         // public virtual Level_of_complexity Level_of_complexity { get; set; }
 
         // public virtual User User { get; set; }
