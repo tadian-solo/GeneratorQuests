@@ -20,7 +20,7 @@ namespace GeneretorQuests
     /// <summary>
     /// Логика взаимодействия для FAQ.xaml
     /// </summary>
-    public partial class FAQ : Window
+    public partial class FAQ : UserControl
     {
         public FAQ()
         {

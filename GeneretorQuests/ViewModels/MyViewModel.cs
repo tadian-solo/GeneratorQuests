@@ -1,4 +1,5 @@
 ﻿using GeneretorQuests.ViewModels.Commands;
+using GeneretorQuests.ViewModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,17 +14,20 @@ namespace GeneretorQuests.ViewModels
     {
         //public event PropertyChangedEventHandler PropertyChanged;
         //public event EventHandler<EventArgs<QuestViewModel>> openQuests;
+        private readonly UserModel SelectUser;
         private readonly IDialogManager _dialogManager;
-        public MyViewModel(IDialogManager dialogManager)
+        public MyViewModel(IDialogManager dialogManager, UserModel user)
         {
             _dialogManager = dialogManager;
+            SelectUser = user;
+
         }
         private ICommand openReadyQuests;
         public ICommand OpenReadyQuests
         {
             get
             {
-                if (openReadyQuests == null) openReadyQuests = new OpenReadyQuestsCommand(_dialogManager);
+                if (openReadyQuests == null) openReadyQuests = new OpenReadyQuestsCommand(_dialogManager, SelectUser);
                 return openReadyQuests;
             }
         }

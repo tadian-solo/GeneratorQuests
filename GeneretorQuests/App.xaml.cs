@@ -19,15 +19,19 @@ namespace GeneretorQuests
         {
             // base.OnStartup(e);
             var dialog = new DialogManager();
-            //dialog.Register<MyViewModel, FAQ>();
+            dialog.Register<MyViewModel, FAQ>();
             dialog.Register<QuestViewModel, ReadyQuests>();
             dialog.Register<SelectQuestViewModel, SelectQuest>();
-            var mainWindow = new FAQ()
+            /*var mainWindow = new FAQ()
             {
                 DataContext = new MyViewModel(dialog)
             };
+            mainWindow.Show();*/
+            var mainWindow = new User()
+            {
+                DataContext = new UserViewModel(dialog)
+            };
             mainWindow.Show();
-            
         }
     }
 }

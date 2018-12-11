@@ -11,11 +11,13 @@ namespace GeneretorQuests.ViewModels.Commands
     public class OpenSelectQuestCommand : ICommand
     {//переписать команду на relay с предикатом, вызывать по другому
         private readonly IDialogManager _dialogManager;
+        private UserModel User;
         public QuestModel qm;
-        public OpenSelectQuestCommand(IDialogManager dialogManager, QuestModel q)
+        public OpenSelectQuestCommand(IDialogManager dialogManager, QuestModel q, UserModel user)
         {
             _dialogManager = dialogManager;
             qm =q;
+            User = user;
         }
         public event EventHandler CanExecuteChanged
         {
@@ -37,7 +39,7 @@ namespace GeneretorQuests.ViewModels.Commands
         }*/
         public void Execute(object parameter)
         {
-            var quest = new SelectQuestViewModel(_dialogManager, qm);
+            var quest = new SelectQuestViewModel(_dialogManager, qm, User);
             _dialogManager.Show(quest);
 
         }

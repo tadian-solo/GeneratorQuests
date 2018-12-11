@@ -32,6 +32,10 @@ namespace GeneretorQuests.Models.Repository
         {
             return db.User.Find(id);
         }
+        public User GetItemForLogin(string login)
+        {
+            return db.User.FirstOrDefault(i=>i.Name.TrimEnd() == login);
+        }
 
         public ObservableCollection<User> GetList()
         {

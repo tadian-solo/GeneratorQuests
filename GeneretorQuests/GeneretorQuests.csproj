@@ -83,23 +83,29 @@
     <Compile Include="Models\Entities\sysdiagrams.cs" />
     <Compile Include="Models\Entities\Type_of_question.cs" />
     <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="ViewModels\Commands\OpenMainWindowCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenReadyQuestsCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenSelectQuestCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenSelectRiddleCommand.cs" />
     <Compile Include="ViewModels\DialogManager.cs" />
     <Compile Include="ViewModels\DTO\QuestModel.cs" />
     <Compile Include="ViewModels\DTO\RiddleModel.cs" />
+    <Compile Include="ViewModels\DTO\UserModel.cs" />
     <Compile Include="ViewModels\MyViewModel.cs" />
     <Compile Include="ViewModels\QuestViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\RiddleViewModel.cs" />
     <Compile Include="ViewModels\SelectQuestViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\DialogManager.cs" />
     <Compile Include="Views\ReadyQuests.xaml.cs">
       <DependentUpon>ReadyQuests.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectQuest.xaml.cs">
       <DependentUpon>SelectQuest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User.xaml.cs">
+      <DependentUpon>User.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SelectQuest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\User.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,50 @@
+﻿<Window x:Class="GeneretorQuests.Views.User"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GeneretorQuests.Views"
+        mc:Ignorable="d"
+        Title="User"  Height="186.111" Width="269.444">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Control.FontFamily" Value="Verdana" />
+            <Setter Property="Control.Background" Value="MediumSlateBlue" />
+            <Setter Property="Control.Foreground" Value="White" />
+            <Setter Property="Control.Margin" Value="10" />
+        </Style>
+    </Window.Resources>
+    <Grid >
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\1.jpg"
+                    Stretch="Fill">
+            </ImageBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="Username:" Grid.Row="1" Grid.Column="0" />
+        <TextBlock Text="Password:" Grid.Row="2" Grid.Column="0" />
+        <TextBox Text="{Binding Login}" Grid.Row="1" Grid.Column="1" />
+        <PasswordBox x:Name="passwordBox" Grid.Row="2" Grid.Column="1" />
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+            <Button Content="Log in" Command="{Binding LoginCommand, Mode=OneTime}"
+            CommandParameter="{Binding ElementName=passwordBox}"
+            HorizontalAlignment="Center" />
+            <Button Content="Log out" Command="{Binding LogoutCommand, Mode=OneTime}"
+            Visibility="{Binding IsAuthenticated}"
+            HorizontalAlignment="Center"/>
+        </StackPanel>
+        
+    </Grid>
+</Window>

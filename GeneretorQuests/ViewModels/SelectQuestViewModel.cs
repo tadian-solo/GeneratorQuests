@@ -20,6 +20,7 @@ namespace GeneretorQuests.ViewModels
         public DBRepos rep;
         private QuestModel selectedQuest;
         private RiddleModel selectedRiddle;
+        private UserModel User;
         public QuestModel SelectedQuest
         {
             get { return selectedQuest; }
@@ -46,16 +47,17 @@ namespace GeneretorQuests.ViewModels
         {
             get
             {
-                if (openSelectRiddle == null) openSelectRiddle = new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle);
+                if (openSelectRiddle == null) openSelectRiddle = new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle, User);
                 return openSelectRiddle;
             }
         }
 
-        public SelectQuestViewModel(IDialogManager d, QuestModel q)
+        public SelectQuestViewModel(IDialogManager d, QuestModel q, UserModel user)
         {
             _dialogManager = d;
             rep = new DBRepos();
             selectedQuest = q;
+            User = user;
             
         }
 

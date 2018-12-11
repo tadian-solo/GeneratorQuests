@@ -1,6 +1,4 @@
-﻿using GeneretorQuests.Models;
-using GeneretorQuests.ViewModels.DTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,15 +7,11 @@ using System.Windows.Input;
 
 namespace GeneretorQuests.ViewModels.Commands
 {
-    public class OpenSelectRiddleCommand : ICommand
+   public class OpenMainWindowCommand:ICommand
     {
         private readonly IDialogManager _dialogManager;
-        private RiddleModel selectRiddle;
-        private UserModel User;
-        public OpenSelectRiddleCommand(IDialogManager dialogManager, RiddleModel riddle, UserModel user)
+        public OpenMainWindowCommand(IDialogManager dialogManager)
         {
-            selectRiddle = riddle;
-            User = user;
             _dialogManager = dialogManager;
         }
         public event EventHandler CanExecuteChanged;
@@ -29,8 +23,8 @@ namespace GeneretorQuests.ViewModels.Commands
 
         public void Execute(object parameter)
         {
-            var riddle = new RiddleViewModel(selectRiddle, User);
-            _dialogManager.Show(riddle);
+          /*  var window = new MyViewModel(_dialogManager);
+            _dialogManager.Show(window);*/
 
         }
     }

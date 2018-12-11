@@ -43,7 +43,7 @@
 
         </TextBlock>
 
-        <DataGrid SelectedItem="{Binding SelectedQuest}"  Name="quests" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="12.8,60,11.6,91" ItemsSource="{Binding Quests}" AutoGenerateColumns="false">
+        <DataGrid ScrollViewer.CanContentScroll="False" SelectedItem="{Binding SelectedQuest}"  Name="quests" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="12.8,60,11.6,91" ItemsSource="{Binding Quests}" AutoGenerateColumns="false">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Номер квеста" Binding="{Binding Id_quest}" />
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />

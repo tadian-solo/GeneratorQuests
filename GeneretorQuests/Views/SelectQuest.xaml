@@ -42,24 +42,30 @@
         <Button Grid.Column="0" Grid.Row="0" Content="Готовые квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  MaxHeight="50" Margin="15,180,15.8,111.8"/>
         <Button Grid.Column="0" Grid.Row="0" Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,240,15.8,50.8"/>
         <WrapPanel Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedQuest}" Orientation="Horizontal" Margin="0.2,50,-0.4,239.4">
-            <TextBlock  
- Text="{Binding Status, StringFormat= Статус: {0} }">
-            </TextBlock>
-            <TextBlock   
- Text="{Binding Number_of_questions, StringFormat= Количество вопросов: {0}}">
-            </TextBlock>
-            <TextBlock  
- Text="{Binding Thematics, StringFormat= Тематика: {0}}">
-            </TextBlock>
-            <TextBlock   
- Text="{Binding Level_name, StringFormat= Уровень сложности: {0}}">
-            </TextBlock>
-            <TextBlock  
- Text="{Binding Autor_name, StringFormat= Автор: {0}}">
-            </TextBlock>
-            <TextBlock  
- Text="{Binding Date, StringFormat= Дата добавления: {0}}">
-            </TextBlock>
+            <TextBlock Text="Status:"/>
+            <TextBox  
+ Text="{Binding Status }">
+            </TextBox>
+            <TextBlock Text="Количество вопросов:"/>
+            <TextBox  
+ Text="{Binding Number_of_questions}">
+            </TextBox>
+            <TextBlock Text="Тематика:"/>
+            <TextBox  
+ Text="{Binding Thematics}">
+            </TextBox>
+            <TextBlock Text="Уровень сложности:"/>
+            <TextBox   
+ Text="{Binding Level_name}">
+            </TextBox>
+            <TextBlock Text="Автор:"/>
+            <TextBox  
+ Text="{Binding Autor_name}">
+            </TextBox>
+            <TextBlock Text="Дата создания:"/>
+            <TextBox 
+ Text="{Binding Date}">
+            </TextBox>
 
         </WrapPanel>
         <TextBlock Grid.Column="1" Grid.Row="0"  FontSize="23" Foreground="MediumSlateBlue" 
@@ -75,7 +81,7 @@
                    FontFamily="Monotype Corsiva"
             Text="{Binding SelectedQuest.Id_quest, StringFormat=Квест № {0}}">
         </TextBlock>
-        <DataGrid SelectedItem="{Binding SelectedRiddle}"  Name="riddls" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="0.6,162,10,70" ItemsSource="{Binding SelectedQuest.Riddle}" AutoGenerateColumns="False">
+        <DataGrid ScrollViewer.CanContentScroll="False" SelectedItem="{Binding SelectedRiddle}"  Name="riddls" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="0.6,162,10,70" ItemsSource="{Binding SelectedQuest.Riddle}" AutoGenerateColumns="False">
 
             <DataGrid.Columns>
 

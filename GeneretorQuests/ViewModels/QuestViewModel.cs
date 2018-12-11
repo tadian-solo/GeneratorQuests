@@ -14,14 +14,16 @@ namespace GeneretorQuests.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public DBRepos rep;
         private QuestModel selectedQuest;
+        private UserModel User;
        // private RiddleModel selectedRiddle;
 
         private readonly IDialogManager _dialogManager;
-        public QuestViewModel(IDialogManager dialogManager)
+        public QuestViewModel(IDialogManager dialogManager, UserModel user)
         {
             _dialogManager = dialogManager;
             this.Quests = new ObservableCollection<QuestModel>();
             rep = new DBRepos();
+            User = user;
             Quests = GetAllQuests();
         }
         /*private ICommand openSelectRiddle;
@@ -69,7 +71,7 @@ namespace GeneretorQuests.ViewModels
             get
             {
                 return openSelectQuest ??
-                      (openSelectQuest = new RelayCommand(obj =>new OpenSelectQuestCommand(_dialogManager, SelectedQuest).Execute(obj),
+                      (openSelectQuest = new RelayCommand(obj =>new OpenSelectQuestCommand(_dialogManager, SelectedQuest, User).Execute(obj),
                       (obj) => SelectedQuest != null));
             }
             

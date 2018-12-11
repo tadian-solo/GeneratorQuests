@@ -15,7 +15,7 @@ namespace GeneretorQuests.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public DBRepos rep;
-       
+        private UserModel User;
         private RiddleModel selectedRiddle;
         
         public RiddleModel SelectedRiddle
@@ -28,10 +28,11 @@ namespace GeneretorQuests.ViewModels
             }
 
         }
-        public RiddleViewModel( RiddleModel r)
+        public RiddleViewModel( RiddleModel r, UserModel user)
         {
             rep = new DBRepos();
             selectedRiddle = r;
+            User = user;
         }
 
        
