@@ -37,10 +37,26 @@ namespace GeneretorQuests.Models.Repository
         {
             return db.Type_of_question.Local;
         }
+       /* public ObservableCollection<Type_of_question> GetListForLevel(int id)
+        {
+            return db.Type_of_question.Local.Where(i=>i.Riddle.Id_Level_FK==);
+        }*/
 
         public void Update(Type_of_question item)
         {
             db.Entry(item).State = EntityState.Modified;
         }
+
+        public ObservableCollection<Type_of_question> GetListForLevel(int id)
+        {
+            ObservableCollection<Type_of_question> types = new ObservableCollection<Type_of_question>();
+            var rs = db.Riddle.Where(i => i.Id_Level_FK == id);
+            foreach(var p in rs)
+            {
+                if (!types.Contains(p.Type_of_question)) types.Add(p.Type_of_question);
+            }
+            return types;
+        }
+            
     }
 }

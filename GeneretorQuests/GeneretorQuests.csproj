@@ -101,6 +101,9 @@
     <Compile Include="Views\ReadyQuests.xaml.cs">
       <DependentUpon>ReadyQuests.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Riddle.xaml.cs">
+      <DependentUpon>Riddle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SelectQuest.xaml.cs">
       <DependentUpon>SelectQuest.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReadyQuests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Riddle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

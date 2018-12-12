@@ -47,8 +47,10 @@ namespace GeneretorQuests.ViewModels
         {
             get
             {
-                if (openSelectRiddle == null) openSelectRiddle = new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle, User);
-                return openSelectRiddle;
+                return openSelectRiddle ??
+                      (openSelectRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle, User).Execute(obj),
+                      (obj) => SelectedRiddle != null));
+               
             }
         }
 

@@ -97,7 +97,7 @@
         <Image Grid.Column="0"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled.png"
                     Stretch="Fill"
              HorizontalAlignment="Stretch" Margin="33,-30,36.8,290.4" VerticalAlignment="Stretch" MaxHeight="100" />
-        <Button Content="Редактировать" Grid.Column="1" HorizontalAlignment="Left" Margin="103.2,335,0,0" VerticalAlignment="Top" Width="103"/>
+        <Button  Command="{Binding OpenSelectRiddle}"  CommandParameter="SelectedRiddle"  Content="Редактировать" Grid.Column="1" HorizontalAlignment="Left" Margin="103.2,335,0,0" VerticalAlignment="Top" Width="103"/>
         <Button Content="Добавить" Grid.Column="1" HorizontalAlignment="Left" Margin="10.2,335,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="224.2,335,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Сохранить" Grid.Column="1" HorizontalAlignment="Left" Margin="320.2,335,0,0" VerticalAlignment="Top" Width="75"/>

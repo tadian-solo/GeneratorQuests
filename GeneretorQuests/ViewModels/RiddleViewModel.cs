@@ -15,6 +15,28 @@ namespace GeneretorQuests.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public DBRepos rep;
+        
+        public ObservableCollection<Level_of_complexity> Levels { get; set; }
+        private ObservableCollection<Type_of_question> types;
+        public ObservableCollection<Type_of_question> Types
+        {
+            get { return types; }
+            set
+            {
+                types = value;
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Types"));
+            }
+        }
+        ObservableCollection<Answer> answers;
+        public ObservableCollection<Answer> Answers
+        {
+            get { return answers; }
+            set
+            {
+                answers = value;
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Answers"));
+            }
+        }
         private UserModel User;
         private RiddleModel selectedRiddle;
         
@@ -28,14 +50,46 @@ namespace GeneretorQuests.ViewModels
             }
 
         }
+        /*private int selectedLevel;
+
+        public int SelectedLevel
+        {
+            get { return selectedLevel; }
+            set
+            {
+                selectedLevel = value;
+                this.PropertyChanged(this, new PropertyChangedEventArgs("SelectedLevel"));
+            }
+
+        }*/
+        
         public RiddleViewModel( RiddleModel r, UserModel user)
         {
             rep = new DBRepos();
             selectedRiddle = r;
+            /*selectedLevel = selectedRiddle.Id_Level_FK;*/
             User = user;
+            Levels = new ObservableCollection<Level_of_complexity>();
+            Levels = rep.Levels.GetList();
+            Types = new ObservableCollection<Type_of_question>();
+            Types = rep.Types.GetList();
+            Answers = new ObservableCollection<Answer>();
+            Answers = rep.Answers.GetList();
+            selectedRiddle.levelChangeEvent +=OnLevelChange;
+            selectedRiddle.typeChangeEvent += OnTypeChange;
         }
 
-       
+        private void OnLevelChange(int id)
+        {
+            Types =rep.Types.GetListForLevel(id);
+            selectedRiddle.Id_Type_FK = Types[0].Id_type;
+        }
+        private void OnTypeChange(int id, int level)
+        {
+            Answers = rep.Answers.GetListForType(id, level);
+            selectedRiddle.Id_Answer_FK = Answers[0].Id_answer;
+        }
+
         private RiddleModel toRiddleModel(Riddle i)
         {
             return new RiddleModel()

@@ -37,6 +37,16 @@ namespace GeneretorQuests.Models.Repository
         {
             return db.Answer.Local;
         }
+        public ObservableCollection<Answer> GetListForType(int id, int level)
+        {
+            ObservableCollection<Answer> answers = new ObservableCollection<Answer>();
+            var rs = db.Riddle.Where(i => (i.Id_Type_FK == id)&&(i.Id_Level_FK == level));
+            foreach (var p in rs)
+            {
+                if (!answers.Contains(p.Answer)) answers.Add(p.Answer);
+            }
+            return answers;
+        }
 
         public void Update(Answer item)
         {
