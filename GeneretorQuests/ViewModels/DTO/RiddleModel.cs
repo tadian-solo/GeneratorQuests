@@ -16,9 +16,19 @@ namespace GeneretorQuests.ViewModels.DTO
         public event LevelChange levelChangeEvent;
         public delegate void TypeChange(int id, int level);
         public event TypeChange typeChangeEvent;
+        public delegate void AnswerChange(int id, int level, int type);
+        public event AnswerChange answerChangeEvent;
         public int Id_riddle { get; set; }
-
-        public string Text { get; set; }
+        string text;
+        public string Text
+        {
+            get { return text; }
+            set
+            {
+                text = value;
+                if (this.PropertyChanged != null) OnPropertyChanged("Text");
+            }
+        }
 
         public string Description { get; set; }
 
@@ -66,9 +76,10 @@ namespace GeneretorQuests.ViewModels.DTO
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            if (propertyName == "Id_Level_FK") { levelChangeEvent(id_Level_FK); typeChangeEvent(id_Type_FK, id_Level_FK); }
-            
+            if (propertyName == "Id_Level_FK") { levelChangeEvent(id_Level_FK); /*typeChangeEvent(id_Type_FK, id_Level_FK); */}
             if (propertyName == "Id_Type_FK") typeChangeEvent(id_Type_FK, id_Level_FK);
+            if (propertyName == "Id_Answer_FK") answerChangeEvent(id_Answer_FK, id_Level_FK,id_Type_FK);
+
         }
 
         // public virtual Answer Answer { get; set; }

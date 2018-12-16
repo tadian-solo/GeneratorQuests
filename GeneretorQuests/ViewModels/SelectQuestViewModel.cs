@@ -48,7 +48,7 @@ namespace GeneretorQuests.ViewModels
             get
             {
                 return openSelectRiddle ??
-                      (openSelectRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle, User).Execute(obj),
+                      (openSelectRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle, User, false).Execute(obj),
                       (obj) => SelectedRiddle != null));
                
             }

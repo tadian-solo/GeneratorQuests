@@ -20,6 +20,8 @@ namespace GeneretorQuests.Models.Repository
         public void Create(Answer item)
         {
             db.Answer.Add(item);
+            db.SaveChanges();
+            Console.WriteLine("okey");
         }
 
         public void Delete(int id)

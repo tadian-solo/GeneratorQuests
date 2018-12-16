@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeneretorQuests.Views"
-        mc:Ignorable="d" >
+        mc:Ignorable="d"  >
     <UserControl.Resources>
         <Style TargetType="Button">
             <Setter Property="Control.FontFamily" Value="Verdana" />
@@ -22,64 +22,106 @@
         </Style>
     </UserControl.Resources>
     <Grid >
-
         <Grid.Background>
             <ImageBrush ImageSource="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\1.jpg"
                     Stretch="Fill">
             </ImageBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"></ColumnDefinition>
-
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.8*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Content="Войти в аккаунт" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50"  Margin="15,60,15.8,230.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Мои квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,120,15.8,172.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Готовые квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  MaxHeight="50" Margin="15,180,15.8,111.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,240,15.8,50.8"/>
-        <WrapPanel Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedRiddle}" Orientation="Vertical" Margin="0.8,50,-0.2,195">
-            <TextBlock Text="Текст:"/>
-            <TextBox  
- Text="{Binding Text}">
-            </TextBox>
-            <TextBlock Text="Описание:"/>
-            <TextBox  
- Text="{Binding Description}">
-            </TextBox>
-            <TextBlock Text="Статус:"/>
-            <TextBox  
- Text="{Binding Status}">
-            </TextBox>
-            <TextBlock Text="Автор:"/>
-            <TextBox   
- Text="{Binding Autor_name}">
-            </TextBox>
-            <TextBlock Text="Уровень:"/>
-  </WrapPanel>
-        <ComboBox Grid.Row="0"
-           ItemsSource="{Binding Path=Levels}" 
+        <WrapPanel HorizontalAlignment="Stretch" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Orientation="Horizontal" >
+            <Button   Content="Войти в аккаунт" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" />
+            <Button  Content="Мои квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" />
+            <Button Content="Готовые квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  MaxHeight="50" />
+            <Button  Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" />
+            <Image  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled.png"
+                    Stretch="Fill"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxHeight="100" Height="74" Width="145"  />
+        </WrapPanel>
+        <TextBlock FontSize="25" HorizontalAlignment="Center" Grid.Column="0"  Grid.Row="1" Text="Редактирование вопроса" />
+        <WrapPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock  Text="Уровень:"/>
+            <ComboBox 
+           ItemsSource="{Binding Levels}" 
            DisplayMemberPath="Name_level" 
            SelectedValuePath="Id_level" 
-           SelectedValue="{Binding Path=SelectedRiddle.Id_Level_FK}" Margin="9.8,258,299.8,168" Grid.Column="1"
-         />
-        <ComboBox Grid.Row="0"
-           ItemsSource="{Binding Path=Types}" 
+           SelectedValue="{Binding SelectedRiddle.Id_Level_FK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </WrapPanel>
+        <WrapPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock  Text="Тип вопроса:"/>
+            <ComboBox 
+           ItemsSource="{Binding Types}" 
            DisplayMemberPath="Name" 
            SelectedValuePath="Id_type" 
-           SelectedValue="{Binding Path=SelectedRiddle.Id_Type_FK}" Margin="9.8,285,299.8,141" Grid.Column="1" RenderTransformOrigin="0.846,3.305"
-         />
-        <ComboBox Grid.Row="0"
-           ItemsSource="{Binding Path=Answers}" 
+           SelectedValue="{Binding SelectedRiddle.Id_Type_FK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </WrapPanel>
+        <WrapPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock  Text="Ответ:"/>
+            <ComboBox 
+           ItemsSource="{Binding Answers}" 
            DisplayMemberPath="Object" 
            SelectedValuePath="Id_answer" 
-           SelectedValue="{Binding Path=SelectedRiddle.Id_Answer_FK}" Margin="9.8,312,299.8,114" Grid.Column="1" RenderTransformOrigin="0.632,2.814"
-         />
-        <Image Grid.Column="0"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled.png"
-                    Stretch="Fill"
-             HorizontalAlignment="Stretch" Margin="33,-30,36.8,290.4" VerticalAlignment="Stretch" MaxHeight="100" />
-
+           SelectedValue="{Binding SelectedRiddle.Id_Answer_FK, UpdateSourceTrigger=PropertyChanged}" 
+           IsEditable="True"/>
+        </WrapPanel>
+        <WrapPanel Grid.Column="0" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Текст:"/>
+            <TextBox Text="{Binding SelectedRiddle.Text}"/>
+        </WrapPanel>
+        <WrapPanel Grid.Column="0" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock  Text="Вступление:"/>
+            <TextBox Text="{Binding SelectedRiddle.Description}"/>
+        </WrapPanel>
+        <WrapPanel Grid.Column="0" Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock  Text="Статус:"/>
+            <TextBlock Text="{Binding SelectedRiddle.Status}"/>
+            <TextBlock  Text="Автор:"/>
+            <TextBlock   Text="{Binding SelectedRiddle.Autor_name}"/>
+        </WrapPanel>
+        <CheckBox x:Name="CheckBox2" IsChecked="{Binding IsNewChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Content="Создать с нуля" Grid.Column="1" />
+        <CheckBox x:Name="CheckBox1" Grid.Row="4" Content="Добавить свой ответ " Grid.Column="1" />
+        <TextBox x:Name="tb1" Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Text="{Binding NewAnswer.Object, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,FallbackValue=Введите ответ}" HorizontalAlignment="Center">
+            <TextBox.Style>
+                <Style>
+                    <Setter Property="TextBox.Visibility" Value="Hidden" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=CheckBox1, Path=IsChecked}" Value="true">
+                            <Setter Property="TextBox.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <Button Command="{Binding AddNewAnswer}" CommandParameter="NewAnswer"  Content="Добавить" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center">
+            <Button.Style>
+                <Style>
+                    <Setter Property="Button.Visibility" Value="Hidden" />
+                    <Setter Property="Control.FontFamily" Value="Verdana" />
+                    <Setter Property="Control.Background" Value="MediumSlateBlue" />
+                    <Setter Property="Control.Foreground" Value="White" />
+                    <Setter Property="Control.Margin" Value="10" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=CheckBox1, Path=IsChecked}" Value="true">
+                            <Setter Property="Button.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Command="{Binding SaveRiddle}" Content="Сохранить" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center"  Width="89"></Button>
     </Grid>
 </UserControl>
