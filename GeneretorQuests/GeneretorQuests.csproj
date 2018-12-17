@@ -67,22 +67,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Entities\Answer.cs" />
-    <Compile Include="Models\GQ.cs" />
-    <Compile Include="Models\Entities\Image.cs" />
-    <Compile Include="Models\Entities\Level_of_complexity.cs" />
-    <Compile Include="Models\Entities\Quest.cs" />
-    <Compile Include="Models\Repository\AnswerRepos.cs" />
-    <Compile Include="Models\Repository\DBRepos.cs" />
-    <Compile Include="Models\Repository\LevelRepos.cs" />
-    <Compile Include="Models\Repository\QuestRepos.cs" />
-    <Compile Include="Models\Repository\RiddleRepos.cs" />
-    <Compile Include="Models\Repository\TypeRepos.cs" />
-    <Compile Include="Models\Repository\UserRepos.cs" />
-    <Compile Include="Models\Entities\Riddle.cs" />
-    <Compile Include="Models\Entities\sysdiagrams.cs" />
-    <Compile Include="Models\Entities\Type_of_question.cs" />
-    <Compile Include="Models\Entities\User.cs" />
     <Compile Include="ViewModels\Commands\OpenMainWindowCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenReadyQuestsCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenSelectQuestCommand.cs" />
@@ -165,6 +149,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{8853AB65-2625-4A7B-8A46-C7644C73D7B3}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{f771f213-3575-4c8e-b9c9-075377537e21}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

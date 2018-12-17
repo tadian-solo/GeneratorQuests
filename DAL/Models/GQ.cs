@@ -1,4 +1,4 @@
-namespace GeneretorQuests.Models
+namespace DAL
 {
     using System;
     using System.Data.Entity;
@@ -17,7 +17,6 @@ namespace GeneretorQuests.Models
         public virtual DbSet<Level_of_complexity> Level_of_complexity { get; set; }
         public virtual DbSet<Quest> Quest { get; set; }
         public virtual DbSet<Riddle> Riddle { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Type_of_question> Type_of_question { get; set; }
         public virtual DbSet<User> User { get; set; }
 
@@ -34,8 +33,7 @@ namespace GeneretorQuests.Models
             modelBuilder.Entity<Answer>()
                 .HasMany(e => e.Riddle)
                 .WithRequired(e => e.Answer)
-                .HasForeignKey(e => e.Id_Answer_FK)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.Id_Answer_FK);
 
             modelBuilder.Entity<Image>()
                 .HasMany(e => e.Riddle)
@@ -53,14 +51,12 @@ namespace GeneretorQuests.Models
             modelBuilder.Entity<Level_of_complexity>()
                 .HasMany(e => e.Quest)
                 .WithRequired(e => e.Level_of_complexity)
-                .HasForeignKey(e => e.Id_Level_FK)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.Id_Level_FK);
 
             modelBuilder.Entity<Level_of_complexity>()
                 .HasMany(e => e.Riddle)
                 .WithRequired(e => e.Level_of_complexity)
-                .HasForeignKey(e => e.Id_Level_FK)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.Id_Level_FK);
 
             modelBuilder.Entity<Quest>()
                 .Property(e => e.Thematics)
@@ -86,8 +82,7 @@ namespace GeneretorQuests.Models
             modelBuilder.Entity<Type_of_question>()
                 .HasMany(e => e.Riddle)
                 .WithRequired(e => e.Type_of_question)
-                .HasForeignKey(e => e.Id_Type_FK)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.Id_Type_FK);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.Name)
@@ -100,14 +95,12 @@ namespace GeneretorQuests.Models
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Quest)
                 .WithRequired(e => e.User)
-                .HasForeignKey(e => e.Id_Autor_FK)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.Id_Autor_FK);
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Riddle)
                 .WithRequired(e => e.User)
-                .HasForeignKey(e => e.Id_Autor_FK)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.Id_Autor_FK);
         }
     }
 }

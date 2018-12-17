@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
@@ -40,7 +41,13 @@ namespace GeneretorQuests.Models.Repository
 
         public void Update(Quest item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            ICollection<Riddle> rs = item.Riddle;
+            foreach (var t in rs) { Riddle rt = db.Riddle.Find(t.Id_riddle); db.Entry(rt).State = EntityState.Detached; }
+            User u = db.User.Find(item.Id_Autor_FK);
+            Quest r = db.Quest.Find(item.Id_quest);
+            db.Entry(r).State = EntityState.Detached;
+            db.Entry(u).State = EntityState.Detached;
+            db.Entry(item).State = EntityState.Modified; 
             db.SaveChanges();
         }
     }

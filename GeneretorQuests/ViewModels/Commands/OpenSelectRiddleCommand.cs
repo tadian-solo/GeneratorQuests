@@ -1,10 +1,6 @@
-﻿using GeneretorQuests.Models;
+﻿using GeneretorQuests.Models.Repository;
 using GeneretorQuests.ViewModels.DTO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace GeneretorQuests.ViewModels.Commands
@@ -16,9 +12,11 @@ namespace GeneretorQuests.ViewModels.Commands
         int _id;
         private RiddleModel selectRiddle;
         private UserModel User;
-        public OpenSelectRiddleCommand(IDialogManager dialogManager, RiddleModel riddle, UserModel user, int id)
+        DBRepos d;
+        public OpenSelectRiddleCommand(DBRepos dd,IDialogManager dialogManager, RiddleModel riddle, UserModel user, int id)
         {
             selectRiddle = riddle;
+            d = dd;
             User = user;
             _dialogManager = dialogManager;
             _id = id;
@@ -32,7 +30,7 @@ namespace GeneretorQuests.ViewModels.Commands
 
         public void Execute(object parameter)
         {
-            var riddle = new RiddleViewModel(selectRiddle, User, _id);
+            var riddle = new RiddleViewModel(d,selectRiddle, User, _id);
             _dialogManager.Show(riddle);
 
         }

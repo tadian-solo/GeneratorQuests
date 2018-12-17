@@ -1,4 +1,4 @@
-﻿using GeneretorQuests.Models;
+﻿using DAL; 
 using GeneretorQuests.Models.Repository;
 using GeneretorQuests.ViewModels.Commands;
 using GeneretorQuests.ViewModels.DTO;
@@ -16,7 +16,7 @@ namespace GeneretorQuests.ViewModels
         private QuestModel selectedQuest;
         private UserModel User;
        // private RiddleModel selectedRiddle;
-
+          
         private readonly IDialogManager _dialogManager;
         public QuestViewModel(IDialogManager dialogManager, UserModel user)
         {

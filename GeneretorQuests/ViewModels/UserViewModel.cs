@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DAL;
 using GeneretorQuests.Models;
 using GeneretorQuests.Models.Repository;
 using GeneretorQuests.ViewModels.Commands;

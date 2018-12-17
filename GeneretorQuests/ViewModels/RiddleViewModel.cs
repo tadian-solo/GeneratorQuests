@@ -1,4 +1,6 @@
-﻿using GeneretorQuests.Models;
+﻿using BLL;
+using DAL;
+using GeneretorQuests.Models;
 using GeneretorQuests.Models.Repository;
 using GeneretorQuests.ViewModels.DTO;
 using System;
@@ -15,7 +17,7 @@ namespace GeneretorQuests.ViewModels
     public class RiddleViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public DBRepos rep;
+        public DbDataOperation rep;
 
         public ObservableCollection<Level_of_complexity> Levels { get; set; }
         private ObservableCollection<Type_of_question> types;
@@ -60,9 +62,9 @@ namespace GeneretorQuests.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs("IsNewChecked"));
                 if (isNewChecked)
                 {
-                    Levels = rep.Levels.GetList();
-                    Types = rep.Types.GetList();
-                    Answers = rep.Answers.GetList();
+                    Levels = rep.GetAllLevel();
+                    Types = rep.GetAllType();
+                    Answers = rep.GetAllAnswer();
                 }
            }
         }
@@ -105,10 +107,10 @@ namespace GeneretorQuests.ViewModels
                 return saveRiddle ??
                       (saveRiddle = new RelayCommand(obj =>
                       {
-                          var q = rep.Quests.GetItem(quest_id);
-                          q.Riddle.Add(toRiddle(selectedRiddle));
-                          rep.Quests.Update(q);
-                          rep.Riddls.Save(User.Access_level || (User.Id_user == selectedRiddle.Id_Autor_FK), IsNewChecked, toRiddle(selectedRiddle));
+                          //var q = rep.GetQuest(quest_id);
+                          //q.Riddle.Add(toRiddle(selectedRiddle));
+                         // rep.UpdateQuest(q);
+                          rep.SaveRiddle(User.Access_level || (User.Id_user == selectedRiddle.Id_Autor_FK), IsNewChecked, toRiddle(selectedRiddle));
                       }
                       ));
 
@@ -118,24 +120,24 @@ namespace GeneretorQuests.ViewModels
         void OnAddAnswer(Answer a)
         {
             
-            rep.Answers.Create(a);
+            rep.CreateAnswer(a);
             IsNewChecked = true;
             //Answers = rep.Answers.GetList();
         }
         int quest_id;
-        public RiddleViewModel( RiddleModel r, UserModel user, int id)
+        public RiddleViewModel(DBRepos d, RiddleModel r, UserModel user, int id)
         {
-            rep = new DBRepos();
+            rep = new DbDataOperation(d);
             quest_id = id;
             selectedRiddle = r??new RiddleModel();
             isNewChecked = false;
             User = user;
             Levels = new ObservableCollection<Level_of_complexity>();
-            Levels = rep.Levels.GetList();
+            Levels = rep.GetAllLevel();
             Types = new ObservableCollection<Type_of_question>();
-            Types = rep.Types.GetList();
+            Types = rep.GetAllType();
             Answers = new ObservableCollection<Answer>();
-            Answers = rep.Answers.GetList();
+            Answers = rep.GetAllAnswer();
             newAnswer = new Answer();
             selectedRiddle.levelChangeEvent +=OnLevelChange;
             selectedRiddle.typeChangeEvent += OnTypeChange;
@@ -147,7 +149,7 @@ namespace GeneretorQuests.ViewModels
         {
             if (!isNewChecked)
             {
-                Types = rep.Types.GetListForLevel(id);
+                Types = rep.GetListTypeForLevel(id);
                 if (Types.Count != 0) selectedRiddle.Id_Type_FK = Types[0].Id_type;
                 else selectedRiddle.Id_Type_FK = -1;
             }
@@ -157,7 +159,7 @@ namespace GeneretorQuests.ViewModels
         {
             if(!isNewChecked)
           {
-            Answers = rep.Answers.GetListForType(id, level);
+            Answers = rep.GetListAnswerForType(id, level);
             if (Answers.Count!= 0) selectedRiddle.Id_Answer_FK = Answers[0].Id_answer;
             else selectedRiddle.Id_Answer_FK = -1;
           }
@@ -168,7 +170,7 @@ namespace GeneretorQuests.ViewModels
         {
             if (!isNewChecked)
             {
-                RiddleModel r = toRiddleModel(rep.Riddls.GetList().Where(i => i.Id_Level_FK == level && i.Id_Type_FK == type && i.Id_Answer_FK == id).FirstOrDefault());
+                RiddleModel r = toRiddleModel(rep.GetAllRiddle().Where(i => i.Id_Level_FK == level && i.Id_Type_FK == type && i.Id_Answer_FK == id).FirstOrDefault());
                 selectedRiddle.Text = r.Text; selectedRiddle.Autor_name = r.Autor_name; selectedRiddle.Description = r.Description; selectedRiddle.Status = r.Status; selectedRiddle.Quest = r.Quest;
                 selectedRiddle.Level_name = r.Level_name; selectedRiddle.Id_riddle = r.Id_riddle; selectedRiddle.Id_Autor_FK = r.Id_Autor_FK; selectedRiddle.Type_name = r.Type_name;  selectedRiddle.Answer_name = r.Answer_name;
                
@@ -202,7 +204,7 @@ namespace GeneretorQuests.ViewModels
         private Riddle toRiddle(RiddleModel i)
         {
            if (i.Quest == null) i.Quest = new ObservableCollection<Quest>();
-            i.Quest.Add(rep.Quests.GetItem(quest_id));
+            i.Quest.Add(rep.GetQuest(quest_id));
 
             return new Riddle()
             {
@@ -211,13 +213,13 @@ namespace GeneretorQuests.ViewModels
                 Description = i.Description,
                 Status = i.Status,
                 Id_Autor_FK = User.Id_user,//selected?
-                User = rep.Users.GetItem(User.Id_user),
+                User = rep.GetUser(User.Id_user),
                 Id_Level_FK = i.Id_Level_FK,
-                Level_of_complexity = rep.Levels.GetItem(i.Id_Level_FK),
+                Level_of_complexity = rep.GetLevel(i.Id_Level_FK),
                 Id_Answer_FK = i.Id_Answer_FK,
-                Answer = rep.Answers.GetItem(i.Id_Answer_FK),
+                Answer = rep.GetAnswer(i.Id_Answer_FK),
                 Id_Type_FK = i.Id_Type_FK,
-                Type_of_question = rep.Types.GetItem(i.Id_Type_FK),
+                Type_of_question = rep.GetType(i.Id_Type_FK),
                 Quest=i.Quest
                 //Image
             };

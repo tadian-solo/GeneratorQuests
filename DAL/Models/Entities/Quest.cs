@@ -1,4 +1,4 @@
-namespace GeneretorQuests.Models
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
@@ -6,27 +6,34 @@ namespace GeneretorQuests.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Level_of_complexity
+    [Table("Quest")]
+    public partial class Quest
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Level_of_complexity()
+        public Quest()
         {
-            Quest = new HashSet<Quest>();
             Riddle = new HashSet<Riddle>();
         }
 
         [Key]
-        public int Id_level { get; set; }
+        public int Id_quest { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string Name_level { get; set; }
+        public bool Status { get; set; }
+
+        public int Number_of_questions { get; set; }
 
         [Column(TypeName = "text")]
-        public string Note { get; set; }
+        public string Thematics { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Quest> Quest { get; set; }
+        public int Id_Level_FK { get; set; }
+
+        public int Id_Autor_FK { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public virtual Level_of_complexity Level_of_complexity { get; set; }
+
+        public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Riddle> Riddle { get; set; }

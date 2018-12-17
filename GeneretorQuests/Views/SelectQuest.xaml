@@ -100,7 +100,7 @@
         <Button  Command="{Binding OpenSelectRiddle}"  CommandParameter="SelectedRiddle"  Content="Редактировать" Grid.Column="1" HorizontalAlignment="Left" Margin="103.2,335,0,0" VerticalAlignment="Top" Width="103"/>
         <Button Command="{Binding AddRiddle}"  Content="Добавить" Grid.Column="1" HorizontalAlignment="Left" Margin="10.2,335,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="224.2,335,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Сохранить" Grid.Column="1" HorizontalAlignment="Left" Margin="320.2,335,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding SaveChanges}" Content="Сохранить" Grid.Column="1" HorizontalAlignment="Left" Margin="320.2,335,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Сохранить как" Grid.Column="1" HorizontalAlignment="Left" Margin="413.2,335,0,0" VerticalAlignment="Top" Width="106"/>
     </Grid>
 </UserControl>
