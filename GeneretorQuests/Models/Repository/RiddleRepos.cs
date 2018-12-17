@@ -29,7 +29,7 @@ namespace GeneretorQuests.Models.Repository
         public void Create(Riddle item)
         {
             
-            if (item.Description == "") item.Description =GenerDescription();
+            if (item.Description == "") item.Description=GenerDescription();
             db.Riddle.Add(item);
             db.SaveChanges();
         }

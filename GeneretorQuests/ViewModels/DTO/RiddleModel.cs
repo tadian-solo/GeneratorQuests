@@ -29,10 +29,27 @@ namespace GeneretorQuests.ViewModels.DTO
                 if (this.PropertyChanged != null) OnPropertyChanged("Text");
             }
         }
+        string desc;
+        public string Description
+        {
+            get { return desc; }
+            set
+            {
+                desc = value;
+                if (this.PropertyChanged != null) OnPropertyChanged("Description");
+            }
+        }
 
-        public string Description { get; set; }
-
-        public bool Status { get; set; }
+        bool status;
+        public bool Status
+        {
+            get { return status; }
+            set
+            {
+                status = value;
+                if (this.PropertyChanged != null) OnPropertyChanged("Status");
+            }
+        }
 
         public int Id_Autor_FK { get; set; }
         public string Autor_name { get; set; }
@@ -93,6 +110,6 @@ namespace GeneretorQuests.ViewModels.DTO
         // public virtual User User { get; set; }
 
 
-        //public virtual ICollection<Quest> Quest { get; set; }
+        public virtual ICollection<Quest> Quest { get; set; }
     }
 }

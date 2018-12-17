@@ -48,9 +48,19 @@ namespace GeneretorQuests.ViewModels
             get
             {
                 return openSelectRiddle ??
-                      (openSelectRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle, User, false).Execute(obj),
+                      (openSelectRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle, User, selectedQuest.Id_quest).Execute(obj),
                       (obj) => SelectedRiddle != null));
                
+            }
+        }
+        private ICommand addRiddle;
+        public ICommand AddRiddle
+        {
+            get
+            {
+                return addRiddle ??
+                      (addRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle, User, selectedQuest.Id_quest).Execute(obj)));
+
             }
         }
 
@@ -102,6 +112,7 @@ namespace GeneretorQuests.ViewModels
                 Answer_name = i.Answer.Object,
                 Id_Type_FK = i.Id_Type_FK,
                 Type_name = i.Type_of_question.Name,
+                Quest = i.Quest
                 //Image
             };
         }

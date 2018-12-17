@@ -41,6 +41,7 @@ namespace GeneretorQuests.Models.Repository
         public void Update(Quest item)
         {
             db.Entry(item).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }
