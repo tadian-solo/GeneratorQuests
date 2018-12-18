@@ -41,14 +41,21 @@ namespace GeneretorQuests.Models.Repository
 
         public void Update(Quest item)
         {
-            ICollection<Riddle> rs = item.Riddle;
-            foreach (var t in rs) { Riddle rt = db.Riddle.Find(t.Id_riddle); db.Entry(rt).State = EntityState.Detached; }
-            User u = db.User.Find(item.Id_Autor_FK);
-            Quest r = db.Quest.Find(item.Id_quest);
-            db.Entry(r).State = EntityState.Detached;
-            db.Entry(u).State = EntityState.Detached;
-            db.Entry(item).State = EntityState.Modified; 
+
+          /*  db.SaveChanges();
+            //db.Entry(item).State = EntityState.Modified;
+            var local = db.Set<Quest>()
+                    .Local
+                    .FirstOrDefault(f => f.Id_quest == item.Id_quest);
+            if (local != null)
+            {
+                db.Entry(local).State = EntityState.Detached;
+            }
+            var rs = item.Riddle;
+            foreach(var r in rs) db.Entry(r).State = EntityState.Detached;*/
+            db.Entry(item).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
+
         }
     }
 }

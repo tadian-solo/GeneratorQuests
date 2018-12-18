@@ -10,7 +10,7 @@ using DAL;
 using GeneretorQuests.Models;
 using GeneretorQuests.Models.Repository;
 using GeneretorQuests.ViewModels.Commands;
-using GeneretorQuests.ViewModels.DTO;
+
 
 namespace GeneretorQuests.ViewModels
 {
@@ -47,9 +47,9 @@ namespace GeneretorQuests.ViewModels
             
         }
 
-        private UserModel UserToModel(User selectedUser)
+        private User UserToModel(User selectedUser)
         {
-            UserModel user = new UserModel
+            User user = new User
             {
                 Id_user = selectedUser.Id_user,
                 Name = selectedUser.Name,

@@ -2,7 +2,7 @@
 using DAL;
 using GeneretorQuests.Models;
 using GeneretorQuests.Models.Repository;
-using GeneretorQuests.ViewModels.DTO;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -69,10 +69,10 @@ namespace GeneretorQuests.ViewModels
            }
         }
 
-        private UserModel User;
-        private RiddleModel selectedRiddle;
+        private User User;
+        private Riddle selectedRiddle;
         
-        public RiddleModel SelectedRiddle
+        public Riddle SelectedRiddle
         {
             get { return selectedRiddle; }
             set
@@ -107,10 +107,15 @@ namespace GeneretorQuests.ViewModels
                 return saveRiddle ??
                       (saveRiddle = new RelayCommand(obj =>
                       {
-                          //var q = rep.GetQuest(quest_id);
-                          //q.Riddle.Add(toRiddle(selectedRiddle));
-                         // rep.UpdateQuest(q);
-                          rep.SaveRiddle(User.Access_level || (User.Id_user == selectedRiddle.Id_Autor_FK), IsNewChecked, toRiddle(selectedRiddle));
+                          
+                          if (isNew)
+                          {
+                              var q = rep.GetQuest(quest_id);
+                              q.Riddle.Add(selectedRiddle);
+                              rep.UpdateQuest(q);
+                          }
+                          
+                          rep.SaveRiddle(User.Access_level || (User.Id_user == selectedRiddle.Id_Autor_FK), IsNewChecked, selectedRiddle);
                       }
                       ));
 
@@ -125,11 +130,13 @@ namespace GeneretorQuests.ViewModels
             //Answers = rep.Answers.GetList();
         }
         int quest_id;
-        public RiddleViewModel(DBRepos d, RiddleModel r, UserModel user, int id)
+        bool isNew;
+        public RiddleViewModel(DBRepos d, Riddle r, User user, int id, bool IsCreated)
         {
             rep = new DbDataOperation(d);
             quest_id = id;
-            selectedRiddle = r??new RiddleModel();
+            isNew = IsCreated;
+            selectedRiddle = r??new Riddle();
             isNewChecked = false;
             User = user;
             Levels = new ObservableCollection<Level_of_complexity>();
@@ -139,9 +146,9 @@ namespace GeneretorQuests.ViewModels
             Answers = new ObservableCollection<Answer>();
             Answers = rep.GetAllAnswer();
             newAnswer = new Answer();
-            selectedRiddle.levelChangeEvent +=OnLevelChange;
-            selectedRiddle.typeChangeEvent += OnTypeChange;
-            selectedRiddle.answerChangeEvent += OnAnswerChange;
+            //selectedRiddle.levelChangeEvent +=OnLevelChange;
+            //selectedRiddle.typeChangeEvent += OnTypeChange;
+            //selectedRiddle.answerChangeEvent += OnAnswerChange;
 
         }
 
@@ -168,7 +175,7 @@ namespace GeneretorQuests.ViewModels
         }
         private void OnAnswerChange(int id, int level, int type)
         {
-            if (!isNewChecked)
+           /* if (!isNewChecked)
             {
                 RiddleModel r = toRiddleModel(rep.GetAllRiddle().Where(i => i.Id_Level_FK == level && i.Id_Type_FK == type && i.Id_Answer_FK == id).FirstOrDefault());
                 selectedRiddle.Text = r.Text; selectedRiddle.Autor_name = r.Autor_name; selectedRiddle.Description = r.Description; selectedRiddle.Status = r.Status; selectedRiddle.Quest = r.Quest;
@@ -177,52 +184,10 @@ namespace GeneretorQuests.ViewModels
                 // SelectedRiddle = r;
                
                 
-            }
+            }*/
             
 
         }
-        private RiddleModel toRiddleModel(Riddle i)
-        {
-            return new RiddleModel()
-            {
-                Id_riddle = i.Id_riddle,
-                Text = i.Text,
-                Description = i.Description,
-                Status = i.Status,
-                Id_Autor_FK = i.Id_Autor_FK,
-                Autor_name = i.User.Name,
-                Id_Level_FK = i.Id_Level_FK,
-                Level_name = i.Level_of_complexity.Name_level,
-                Id_Answer_FK = i.Id_Answer_FK,
-                Answer_name = i.Answer.Object,
-                Id_Type_FK = i.Id_Type_FK,
-                Type_name = i.Type_of_question.Name,
-                Quest=i.Quest
-                //Image
-            };
-        }
-        private Riddle toRiddle(RiddleModel i)
-        {
-           if (i.Quest == null) i.Quest = new ObservableCollection<Quest>();
-            i.Quest.Add(rep.GetQuest(quest_id));
-
-            return new Riddle()
-            {
-                Id_riddle = i.Id_riddle,
-                Text = i.Text,
-                Description = i.Description,
-                Status = i.Status,
-                Id_Autor_FK = User.Id_user,//selected?
-                User = rep.GetUser(User.Id_user),
-                Id_Level_FK = i.Id_Level_FK,
-                Level_of_complexity = rep.GetLevel(i.Id_Level_FK),
-                Id_Answer_FK = i.Id_Answer_FK,
-                Answer = rep.GetAnswer(i.Id_Answer_FK),
-                Id_Type_FK = i.Id_Type_FK,
-                Type_of_question = rep.GetType(i.Id_Type_FK),
-                Quest=i.Quest
-                //Image
-            };
-        }
+        
     }
 }

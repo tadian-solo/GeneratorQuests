@@ -1,4 +1,5 @@
-﻿using GeneretorQuests.ViewModels.DTO;
+﻿
+using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace GeneretorQuests.ViewModels.Commands
     public class OpenReadyQuestsCommand : ICommand
     {
         private readonly IDialogManager _dialogManager;
-        private readonly UserModel User;
-        public OpenReadyQuestsCommand(IDialogManager dialogManager, UserModel user)
+        private readonly User User;
+        public OpenReadyQuestsCommand(IDialogManager dialogManager, User user)
         {
             _dialogManager = dialogManager;
             User = user;

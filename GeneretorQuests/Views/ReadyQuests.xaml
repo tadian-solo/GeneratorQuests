@@ -49,8 +49,8 @@
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
                 <DataGridTextColumn Header="Количество вопросов" Binding="{Binding Number_of_questions}" />
                 <DataGridTextColumn Header="Тематика" Binding="{Binding Thematics}" />
-                <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_name}" />
-                <DataGridTextColumn Header="Автор" Binding="{Binding Autor_name}" />
+                <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
+                <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
                 <DataGridTextColumn Header="Дата добавления" Binding="{Binding Date}" />
             </DataGrid.Columns>
 

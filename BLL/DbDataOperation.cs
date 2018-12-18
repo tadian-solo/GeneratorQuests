@@ -28,7 +28,7 @@ namespace BLL
         {
             db.Answers.Create(item);
             db.Save();
-            GetAllAnswer();
+           // GetAllAnswer();
         }
 
         public void DeleteAnswer(int id)
@@ -110,6 +110,7 @@ namespace BLL
         {
             //Quest q = db.Quests.GetItem(item.Id_quest);
             db.Quests.Update(item);
+            
         }
         Random rand = new Random();
         List<string> descriptions = new List<string>() {
@@ -149,10 +150,7 @@ namespace BLL
             if (item.Description == "") item.Description = GenerDescription();
             Riddle r = db.Riddls.GetItem(item.Id_riddle);
             db.Riddls.Update(item);
-            /*Riddle r = db.Riddle.Find(item.Id_riddle);
-            db.Entry(r).CurrentValues.SetValues(item);
-            db.Entry(r).State = EntityState.Modified;
-            db.SaveChanges();*/
+           
 
 
         }

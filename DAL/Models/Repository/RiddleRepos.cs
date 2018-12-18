@@ -48,16 +48,17 @@ namespace GeneretorQuests.Models.Repository
 
         public void Update(Riddle item)
         {
-            //if (item.Description == "") item.Description = GenerDescription();
-            /*Riddle r = db.Riddle.Find(item.Id_riddle);
-            db.Entry(r).CurrentValues.SetValues(item);
-            db.Entry(r).State = EntityState.Modified;
-            db.SaveChanges();*/
-            User u = db.User.Find(item.Id_Autor_FK);
-            Riddle r = db.Riddle.Find(item.Id_riddle);
-            db.Entry(r).State = EntityState.Detached;
-            db.Entry(u).State = EntityState.Detached;
-            db.Entry(item).State = EntityState.Modified;
+            /*db.SaveChanges();
+            //db.Entry(item).State = EntityState.Modified;
+            var local = db.Set<Riddle>()
+                    .Local
+                    .FirstOrDefault(f => f.Id_riddle == item.Id_riddle);
+            if (local != null)
+            {
+                db.Entry(local).State = EntityState.Detached;
+            }*/
+            db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+            
 
         }
 

@@ -38,7 +38,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Button Grid.Column="0" Grid.Row="0" Content="Войти в аккаунт" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50"  Margin="15,60,15.8,230.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Мои квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,120,15.8,172.8"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Загадки" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,120,15.8,172.8"/>
         <Button Grid.Column="0" Grid.Row="0" Content="Готовые квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  MaxHeight="50" Margin="15,180,15.8,111.8"/>
         <Button Grid.Column="0" Grid.Row="0" Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,240,15.8,50.8"/>
         <WrapPanel Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedQuest}" Orientation="Horizontal" Margin="0.2,50,-0.4,239.4">
@@ -56,11 +56,11 @@
             </TextBox>
             <TextBlock Text="Уровень сложности:"/>
             <TextBox   
- Text="{Binding Level_name}">
+ Text="{Binding Level_of_complexity.Name_level}">
             </TextBox>
             <TextBlock Text="Автор:"/>
             <TextBox  
- Text="{Binding Autor_name}">
+ Text="{Binding User.Name}">
             </TextBox>
             <TextBlock Text="Дата создания:"/>
             <TextBox 
@@ -87,11 +87,11 @@
 
                 <DataGridTextColumn Header="Текст" Binding="{Binding Text}" />
                 <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
-                <DataGridTextColumn Header="Ответ" Binding="{Binding Answer_name}" />
+                <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
-                <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_name}" />
-                <DataGridTextColumn Header="Автор" Binding="{Binding Autor_name}" />
-                <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_name}" />
+                <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
+                <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
+                <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
             </DataGrid.Columns>
         </DataGrid>
         <Image Grid.Column="0"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled.png"
@@ -100,7 +100,6 @@
         <Button  Command="{Binding OpenSelectRiddle}"  CommandParameter="SelectedRiddle"  Content="Редактировать" Grid.Column="1" HorizontalAlignment="Left" Margin="103.2,335,0,0" VerticalAlignment="Top" Width="103"/>
         <Button Command="{Binding AddRiddle}"  Content="Добавить" Grid.Column="1" HorizontalAlignment="Left" Margin="10.2,335,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="224.2,335,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Command="{Binding SaveChanges}" Content="Сохранить" Grid.Column="1" HorizontalAlignment="Left" Margin="320.2,335,0,0" VerticalAlignment="Top" Width="75"/>
         <Button Content="Сохранить как" Grid.Column="1" HorizontalAlignment="Left" Margin="413.2,335,0,0" VerticalAlignment="Top" Width="106"/>
     </Grid>
 </UserControl>

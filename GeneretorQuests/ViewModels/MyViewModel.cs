@@ -1,5 +1,6 @@
-﻿using GeneretorQuests.ViewModels.Commands;
-using GeneretorQuests.ViewModels.DTO;
+﻿using DAL;
+using GeneretorQuests.ViewModels.Commands;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,9 +15,9 @@ namespace GeneretorQuests.ViewModels
     {
         //public event PropertyChangedEventHandler PropertyChanged;
         //public event EventHandler<EventArgs<QuestViewModel>> openQuests;
-        private readonly UserModel SelectUser;
+        private readonly User SelectUser;
         private readonly IDialogManager _dialogManager;
-        public MyViewModel(IDialogManager dialogManager, UserModel user)
+        public MyViewModel(IDialogManager dialogManager, User user)
         {
             _dialogManager = dialogManager;
             SelectUser = user;
