@@ -44,27 +44,27 @@
         <WrapPanel Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedQuest}" Orientation="Horizontal" Margin="0.2,50,-0.4,239.4">
             <TextBlock Text="Status:"/>
             <TextBox  
- Text="{Binding Status }">
+ Text="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
             </TextBox>
             <TextBlock Text="Количество вопросов:"/>
             <TextBox  
- Text="{Binding Number_of_questions}">
+ Text="{Binding Number_of_questions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
             <TextBlock Text="Тематика:"/>
             <TextBox  
- Text="{Binding Thematics}">
+ Text="{Binding Thematics, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
             <TextBlock Text="Уровень сложности:"/>
             <TextBox   
- Text="{Binding Level_of_complexity.Name_level}">
+ Text="{Binding Level_of_complexity.Name_level, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
             <TextBlock Text="Автор:"/>
             <TextBox  
- Text="{Binding User.Name}">
+ Text="{Binding User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
             <TextBlock Text="Дата создания:"/>
             <TextBox 
- Text="{Binding Date}">
+ Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
 
         </WrapPanel>
@@ -97,9 +97,8 @@
         <Image Grid.Column="0"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled.png"
                     Stretch="Fill"
              HorizontalAlignment="Stretch" Margin="33,-30,36.8,290.4" VerticalAlignment="Stretch" MaxHeight="100" />
-        <Button  Command="{Binding OpenSelectRiddle}"  CommandParameter="SelectedRiddle"  Content="Редактировать" Grid.Column="1" HorizontalAlignment="Left" Margin="103.2,335,0,0" VerticalAlignment="Top" Width="103"/>
+        <Button  Command="{Binding OpenSelectRiddle}"  CommandParameter="SelectedRiddle"  Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="103.2,335,0,0" VerticalAlignment="Top" Width="103"/>
         <Button Command="{Binding AddRiddle}"  Content="Добавить" Grid.Column="1" HorizontalAlignment="Left" Margin="10.2,335,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="224.2,335,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Сохранить как" Grid.Column="1" HorizontalAlignment="Left" Margin="413.2,335,0,0" VerticalAlignment="Top" Width="106"/>
+        <Button  Command="{Binding SaveQuest}" Content="Сохранить" Grid.Column="1" HorizontalAlignment="Left" Margin="224.2,335,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </UserControl>

@@ -32,7 +32,15 @@ namespace GeneretorQuests.ViewModels
                 return openReadyQuests;
             }
         }
-
+        private ICommand openReadyRiddls;
+        public ICommand OpenReadyRiddls
+        {
+            get
+            {
+                if (openReadyRiddls == null) openReadyRiddls = new OpenReadyRiddlsCommand(_dialogManager, SelectUser);
+                return openReadyRiddls;
+            }
+        }
     }
 
     /*public class EventArgs<T> : EventArgs

@@ -1,12 +1,70 @@
-﻿<Window x:Class="GeneretorQuests.Views.Riddls"
+﻿<UserControl x:Class="GeneretorQuests.Views.Riddls"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeneretorQuests.Views"
-        mc:Ignorable="d"
-        Title="Riddls" Height="450" Width="800">
+        mc:Ignorable="d" Width="800" Height="400"
+        >
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Control.FontFamily" Value="Verdana" />
+            <Setter Property="Control.Background" Value="MediumSlateBlue" />
+            <Setter Property="Control.Foreground" Value="White" />
+            <Setter Property="Control.Margin" Value="10" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\1.jpg"
+                    Stretch="Fill">
+            </ImageBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Grid.Row="0" Content="Войти в аккаунт" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50"  Margin="15,60,15.8,230.8"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Мои квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,120,15.8,172.8"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Готовые квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  MaxHeight="50" Margin="15,180,15.8,111.8"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,240,15.8,50.8"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="0"
+                    FontFamily="Times New Roman"
+                    FontSize="14"
+                    TextWrapping="Wrap"
+                    TextAlignment="Justify"
+                    Margin="15.2,15,14.6,91.4"
+                   BaselineOffset="10">
+      <Run FontSize="25" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva">  Список квестов: </Run>  <LineBreak />
+
+        </TextBlock>
+
+         <DataGrid ScrollViewer.CanContentScroll="False" SelectedItem="{Binding SelectedRiddle}"  Name="riddls" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="10.6,60,15,112" ItemsSource="{Binding Riddls}" AutoGenerateColumns="False">
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Текст" Binding="{Binding Text}" />
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
+                    <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
+                    <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
+                    <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
+                </DataGrid.Columns>
+          
+        </DataGrid>
+
+        <Image Grid.Column="0"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled.png"
+                    Stretch="Fill"
+             HorizontalAlignment="Stretch" Margin="33,-30,36.8,290.4" VerticalAlignment="Stretch" MaxHeight="100" />
+        <Button  Command="{Binding OpenSelectRiddle}"  CommandParameter="SelectedRiddle"  Content="Открыть" Grid.Column="1" HorizontalAlignment="Left" Margin="10.2,320,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button  Command="{Binding DeleteSelectRiddle}"  CommandParameter="SelectedRiddle" Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="193.2,320,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding CreateRiddle}" Content="Добавить" Grid.Column="1" HorizontalAlignment="Left" Margin="101.2,320,0,0" VerticalAlignment="Top" Width="75"/>
+
     </Grid>
-</Window>
+</UserControl>

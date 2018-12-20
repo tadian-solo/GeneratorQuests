@@ -109,6 +109,11 @@ namespace BLL
         public void UpdateQuest(Quest item)
         {
             //Quest q = db.Quests.GetItem(item.Id_quest);
+            item.Number_of_questions = item.Riddle.Count;
+            int sum=0;
+            foreach (var r in item.Riddle) sum += r.Id_Level_FK;
+            item.Level_of_complexity = GetLevel(sum/ item.Riddle.Count);
+            item.Id_Level_FK = item.Level_of_complexity.Id_level;
             db.Quests.Update(item);
             
         }
@@ -123,7 +128,7 @@ namespace BLL
         public void CreateRiddle(Riddle item)
         {
 
-            if (item.Description == "") item.Description = GenerDescription();
+            if (String.IsNullOrWhiteSpace(item.Description)) item.Description = GenerDescription();
             db.Riddls.Create(item);
             db.Save();
         }
@@ -147,8 +152,8 @@ namespace BLL
 
         public void UpdateRiddle(Riddle item)
         {
-            if (item.Description == "") item.Description = GenerDescription();
-            Riddle r = db.Riddls.GetItem(item.Id_riddle);
+            if (String.IsNullOrWhiteSpace(item.Description)) item.Description = GenerDescription();
+           // Riddle r = db.Riddls.GetItem(item.Id_riddle);
             db.Riddls.Update(item);
            
 
@@ -189,6 +194,11 @@ namespace BLL
         public User GetUser(int id)
         {
             return db.Users.GetItem(id);
+        }
+        public void CreateUser(User u)
+        {
+            db.Users.Create(u);
+            db.Save();
         }
     }
 }

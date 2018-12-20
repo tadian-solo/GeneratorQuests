@@ -35,14 +35,14 @@
         
         <TextBlock Text="Username:" Grid.Row="1" Grid.Column="0" />
         <TextBlock Text="Password:" Grid.Row="2" Grid.Column="0" />
-        <TextBox Text="{Binding Login}" Grid.Row="1" Grid.Column="1" />
+        <TextBox Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" />
         <PasswordBox x:Name="passwordBox" Grid.Row="2" Grid.Column="1" />
         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
             <Button Content="Log in" Command="{Binding LoginCommand, Mode=OneTime}"
             CommandParameter="{Binding ElementName=passwordBox}"
             HorizontalAlignment="Center" />
-            <Button Content="Log out" Command="{Binding LogoutCommand, Mode=OneTime}"
-            Visibility="{Binding IsAuthenticated}"
+            <Button Content="Log out" Command="{Binding LogoutCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=passwordBox}"
+            
             HorizontalAlignment="Center"/>
         </StackPanel>
         

@@ -59,7 +59,7 @@
            ItemsSource="{Binding Levels}" 
            DisplayMemberPath="Name_level" 
            SelectedValuePath="Id_level" 
-           SelectedItem="{Binding SelectedRiddle.Level_of_complexity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+           SelectedItem="{Binding SelectedLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </WrapPanel>
         <WrapPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock  Text="Тип вопроса:"/>
@@ -67,7 +67,7 @@
            ItemsSource="{Binding Types}" 
            DisplayMemberPath="Name" 
            SelectedValuePath="Id_type" 
-           SelectedItem="{Binding SelectedRiddle.Type_of_question, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+           SelectedItem="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </WrapPanel>
         <WrapPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock  Text="Ответ:"/>
@@ -75,7 +75,7 @@
            ItemsSource="{Binding Answers}" 
            DisplayMemberPath="Object" 
            SelectedValuePath="Id_answer" 
-           SelectedItem="{Binding SelectedRiddle.Answer, UpdateSourceTrigger=PropertyChanged}" 
+           SelectedItem="{Binding SelectedAnswer, UpdateSourceTrigger=PropertyChanged}" 
            IsEditable="True"/>
         </WrapPanel>
         <WrapPanel Grid.Column="0" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">

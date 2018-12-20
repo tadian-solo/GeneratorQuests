@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using BLL;
 using DAL;
 using GeneretorQuests.Models;
 using GeneretorQuests.Models.Repository;
@@ -26,74 +27,44 @@ namespace GeneretorQuests.ViewModels
             _dialogManager = dialogManager;
             rep = new DBRepos();
             _loginCommand = new RelayCommand(LogIn, i => true);
-          //  _logoutCommand = new RelayCommand(Logout);
+            _logoutCommand = new RelayCommand(Logout);
         }
         public RelayCommand LoginCommand { get { return _loginCommand; } }
 
         public RelayCommand LogoutCommand { get { return _logoutCommand; } }
+
         private void LogIn(object parameter)
         {
             PasswordBox passwordBox = parameter as PasswordBox;
             string clearTextPassword = passwordBox.Password;
            
-           SelectedUser= rep.Users.GetItemForLogin(Login);
-            if (clearTextPassword == SelectedUser.Password)
+            selectedUser= rep.Users.GetItemForLogin(Login);
+            if (clearTextPassword == selectedUser.Password)
             {
-                var window = new MyViewModel(_dialogManager, UserToModel(SelectedUser));
+                var window = new MyViewModel(_dialogManager, selectedUser);
                 _dialogManager.Show(window);
             }
-            
-      
-            
+           
         }
-
-        private User UserToModel(User selectedUser)
+        private void Logout(object parameter)
         {
-            User user = new User
-            {
-                Id_user = selectedUser.Id_user,
-                Name = selectedUser.Name,
-                Password = selectedUser.Password,
-                Access_level = selectedUser.Access_level
-            };
-            return user;
-        }
+            PasswordBox passwordBox = parameter as PasswordBox;
+            string clearTextPassword = passwordBox.Password;
+            DbDataOperation db = new DbDataOperation(rep);
+            User u = new User { Name = Login, Password = clearTextPassword, Access_level = false};
+            db.CreateUser(u);
+           
 
-        private User selectedUser;
+        }
         private string login;
-        //private string password;
         public string Login
         {
             get { return login; }
             set { login = value; this.PropertyChanged(this, new PropertyChangedEventArgs("Login")); }
         }
-     /*   public string Password
-        {
-            get { return password; }
-            set { password = value; this.PropertyChanged(this, new PropertyChangedEventArgs("Password")); }
-        }*/
-        public User SelectedUser
-        {
-            get { return selectedUser; }
-            set
-            {
-                selectedUser = value;
-                
-
-
-            }
-
-        }
-      /*  private ICommand openMainWindow;
-        public ICommand OpenMainWindow
-        {
-            
-            get
-            {
-                return openMainWindow ??
-                      (openMainWindow = new RelayCommand(obj => new OpenMainWindowCommand(_dialogManager, SelectedUser).Execute(obj),
-                      (obj) => SelectedUser != null));
-            }
-        }*/
+        
+       private User selectedUser;
+        
+     
     }
 }

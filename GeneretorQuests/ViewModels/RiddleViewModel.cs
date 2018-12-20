@@ -14,6 +14,65 @@ using System.Windows.Input;
 
 namespace GeneretorQuests.ViewModels
 {
+    public interface ISave
+    {
+        void Save(Riddle r, int questId);
+    }
+    public class CreateAndSave : ISave
+    {
+        DbDataOperation rep;
+        public CreateAndSave(DbDataOperation r)
+        {
+            rep = r;
+        }
+        public void Save(Riddle t, int questId)
+        {
+            var r = new Riddle
+            {
+                Text = t.Text,
+                Description = t.Description,
+                Status = t.Status,
+                Id_Autor_FK = t.Id_Autor_FK,
+                Id_Level_FK = t.Id_Level_FK,
+                Id_Answer_FK = t.Id_Answer_FK,
+                Id_Type_FK = t.Id_Type_FK,
+                Answer = t.Answer,
+                Level_of_complexity = t.Level_of_complexity,
+                Type_of_question = t.Type_of_question,
+                User = t.User,
+                Quest = t.Quest
+            };
+            if (questId!=-1)
+            {
+
+                var q = rep.GetQuest(questId);
+                r.Quest.Add(q);
+                //q.Riddle.Add(r);
+                rep.UpdateQuest(q);
+            }
+            rep.CreateRiddle(r);
+        }
+    }
+    public class UpdateAndSave : ISave
+    {
+        DbDataOperation rep;
+        public UpdateAndSave(DbDataOperation r)
+        {
+            rep = r;
+        }
+        public void Save(Riddle r, int questId)
+        {
+            if (questId != -1)
+            {
+
+                var q = rep.GetQuest(questId);
+                r.Quest.Add(q);
+                //q.Riddle.Add(r);
+                rep.UpdateQuest(q);
+            }
+            rep.UpdateRiddle(r);
+        }
+    }
     public class RiddleViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -51,6 +110,42 @@ namespace GeneretorQuests.ViewModels
             }
 
         }
+        Level_of_complexity selectedLevel;
+        public Level_of_complexity SelectedLevel
+        {
+            get { return selectedLevel; }
+            set
+            {
+                selectedLevel = value;
+                OnLevelChange(selectedLevel.Id_level);
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("SelectedLevel"));
+            }
+
+        }
+       Type_of_question selectedType;
+        public Type_of_question SelectedType
+        {
+            get { return selectedType; }
+            set
+            {
+                selectedType = value;
+                OnTypeChange(selectedType.Id_type, selectedLevel.Id_level);
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("SelectedType"));
+            }
+
+        }
+        Answer selectedAnswer;
+        public Answer SelectedAnswer
+        {
+            get { return selectedAnswer; }
+            set
+            {
+                selectedAnswer = value;
+                OnAnswerChange(selectedAnswer.Id_answer, selectedLevel.Id_level, selectedType.Id_type);
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("SelectedAnswer"));
+            }
+
+        }
         bool isNewChecked;
       
         public bool IsNewChecked
@@ -78,7 +173,7 @@ namespace GeneretorQuests.ViewModels
             set
             {
                 selectedRiddle = value;
-                this.PropertyChanged(this, new PropertyChangedEventArgs("SelectedRiddle"));
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("SelectedRiddle"));
                 
 
             }
@@ -107,15 +202,10 @@ namespace GeneretorQuests.ViewModels
                 return saveRiddle ??
                       (saveRiddle = new RelayCommand(obj =>
                       {
-                          
-                          if (isNew)
-                          {
-                              var q = rep.GetQuest(quest_id);
-                              q.Riddle.Add(selectedRiddle);
-                              rep.UpdateQuest(q);
-                          }
-                          
-                          rep.SaveRiddle(User.Access_level || (User.Id_user == selectedRiddle.Id_Autor_FK), IsNewChecked, selectedRiddle);
+
+                          if ((User.Access_level || (User.Id_user == selectedRiddle.Id_Autor_FK)) && !isNewChecked) save = new UpdateAndSave(rep);
+                          else save = new CreateAndSave(rep);
+                          save.Save(selectedRiddle, quest_id);
                       }
                       ));
 
@@ -130,13 +220,14 @@ namespace GeneretorQuests.ViewModels
             //Answers = rep.Answers.GetList();
         }
         int quest_id;
-        bool isNew;
+        ISave save;
+        bool isNew;//добавляется в квест или просто создается
         public RiddleViewModel(DBRepos d, Riddle r, User user, int id, bool IsCreated)
         {
             rep = new DbDataOperation(d);
             quest_id = id;
             isNew = IsCreated;
-            selectedRiddle = r??new Riddle();
+            selectedRiddle = r??new Riddle();//
             isNewChecked = false;
             User = user;
             Levels = new ObservableCollection<Level_of_complexity>();
@@ -146,9 +237,9 @@ namespace GeneretorQuests.ViewModels
             Answers = new ObservableCollection<Answer>();
             Answers = rep.GetAllAnswer();
             newAnswer = new Answer();
-            //selectedRiddle.levelChangeEvent +=OnLevelChange;
-            //selectedRiddle.typeChangeEvent += OnTypeChange;
-            //selectedRiddle.answerChangeEvent += OnAnswerChange;
+            SelectedLevel = SelectedRiddle.Level_of_complexity??Levels[0];
+            SelectedType = SelectedRiddle.Type_of_question??Types[0];
+            SelectedAnswer = SelectedRiddle.Answer??Answers[0];
 
         }
 
@@ -157,8 +248,8 @@ namespace GeneretorQuests.ViewModels
             if (!isNewChecked)
             {
                 Types = rep.GetListTypeForLevel(id);
-                if (Types.Count != 0) selectedRiddle.Id_Type_FK = Types[0].Id_type;
-                else selectedRiddle.Id_Type_FK = -1;
+                if (Types.Count != 0) selectedRiddle.Type_of_question = Types[0];
+                else { selectedRiddle.Id_Type_FK = -1; selectedRiddle.Id_Answer_FK = -1; }
             }
             //else Types = rep.Types.GetList(); 
         }
@@ -167,7 +258,7 @@ namespace GeneretorQuests.ViewModels
             if(!isNewChecked)
           {
             Answers = rep.GetListAnswerForType(id, level);
-            if (Answers.Count!= 0) selectedRiddle.Id_Answer_FK = Answers[0].Id_answer;
+            if (Answers.Count!= 0) selectedRiddle.Answer = Answers[0];
             else selectedRiddle.Id_Answer_FK = -1;
           }
            // else Answers = rep.Answers.GetList();
@@ -175,17 +266,22 @@ namespace GeneretorQuests.ViewModels
         }
         private void OnAnswerChange(int id, int level, int type)
         {
-           /* if (!isNewChecked)
+            if (!isNewChecked)
             {
-                RiddleModel r = toRiddleModel(rep.GetAllRiddle().Where(i => i.Id_Level_FK == level && i.Id_Type_FK == type && i.Id_Answer_FK == id).FirstOrDefault());
-                selectedRiddle.Text = r.Text; selectedRiddle.Autor_name = r.Autor_name; selectedRiddle.Description = r.Description; selectedRiddle.Status = r.Status; selectedRiddle.Quest = r.Quest;
-                selectedRiddle.Level_name = r.Level_name; selectedRiddle.Id_riddle = r.Id_riddle; selectedRiddle.Id_Autor_FK = r.Id_Autor_FK; selectedRiddle.Type_name = r.Type_name;  selectedRiddle.Answer_name = r.Answer_name;
-               
-                // SelectedRiddle = r;
+                Riddle r = rep.GetAllRiddle().Where(i => i.Id_Level_FK == level && i.Id_Type_FK == type && i.Id_Answer_FK == id).FirstOrDefault();
+                /*selectedRiddle.Text = r.Text; selectedRiddle.User=r.User; selectedRiddle.Description = r.Description; selectedRiddle.Status = r.Status; selectedRiddle.Quest = r.Quest;
+                selectedRiddle.Level_of_complexity = r.Level_of_complexity; selectedRiddle.Id_riddle = r.Id_riddle; selectedRiddle.Id_Autor_FK = r.Id_Autor_FK; selectedRiddle.Type_of_question = r.Type_of_question;  selectedRiddle.Answer = r.Answer;
+               */
+                SelectedRiddle = r;
                
                 
-            }*/
-            
+            }
+            else
+            {
+                selectedRiddle.Level_of_complexity = SelectedLevel; selectedRiddle.Id_Level_FK = SelectedLevel.Id_level;
+                selectedRiddle.Type_of_question = selectedType; selectedRiddle.Id_Type_FK = SelectedType.Id_type;
+                selectedRiddle.Answer = selectedAnswer; selectedRiddle.Id_Answer_FK = SelectedAnswer.Id_answer;
+            }
 
         }
         

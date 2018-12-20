@@ -23,8 +23,22 @@ namespace GeneretorQuests.Models.Repository
 
         public void Create(Riddle item)
         {
-            
-           
+
+            /*var r = new Riddle
+            {
+                Text = item.Text,
+                Description = item.Description,
+                Status = item.Status,
+                Id_Autor_FK = item.Id_Autor_FK,
+                Id_Level_FK = item.Id_Level_FK,
+                Id_Answer_FK = item.Id_Answer_FK,
+                Id_Type_FK = item.Id_Type_FK,
+                Answer = item.Answer,
+                Level_of_complexity = item.Level_of_complexity,
+                Type_of_question = item.Type_of_question,
+                User = item.User,
+                Quest = item.Quest
+            };*/
             db.Riddle.Add(item);
             
         }

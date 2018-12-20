@@ -60,8 +60,8 @@
                     Stretch="Fill"
              HorizontalAlignment="Stretch" Margin="33,-30,36.8,290.4" VerticalAlignment="Stretch" MaxHeight="100" />
         <Button  Command="{Binding OpenSelectQuest}"  CommandParameter="SelectedQuest"  Content="Открыть" Grid.Column="1" HorizontalAlignment="Left" Margin="10.2,320,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="193.2,320,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Добавить" Grid.Column="1" HorizontalAlignment="Left" Margin="101.2,320,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button  Command="{Binding DeleteSelectQuest}"  CommandParameter="SelectedQuest" Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="193.2,320,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding CreateQuest}" Content="Добавить" Grid.Column="1" HorizontalAlignment="Left" Margin="101.2,320,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </UserControl>

@@ -2,10 +2,11 @@ namespace DAL
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    
     [Table("Quest")]
     public partial class Quest
     {
@@ -14,17 +15,40 @@ namespace DAL
         {
             Riddle = new HashSet<Riddle>();
         }
-
+        public event PropertyChangedEventHandler PropertyChanged;
         [Key]
         public int Id_quest { get; set; }
-
-        public bool Status { get; set; }
-
-        public int Number_of_questions { get; set; }
-
+        private bool status;
+        public bool Status
+        {
+            get { return status; }
+            set
+            {
+                status = value;
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Status"));
+            }
+        }
+        int number_of_questions;
+        public int Number_of_questions
+        {
+            get { return number_of_questions; }
+            set
+            {
+                number_of_questions = value;
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Number_of_questions"));
+            }
+        }
+        string thematics;
         [Column(TypeName = "text")]
-        public string Thematics { get; set; }
-
+        public string Thematics
+        {
+            get { return thematics; }
+            set
+            {
+                thematics = value;
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Thematics"));
+            }
+        }
         public int Id_Level_FK { get; set; }
 
         public int Id_Autor_FK { get; set; }

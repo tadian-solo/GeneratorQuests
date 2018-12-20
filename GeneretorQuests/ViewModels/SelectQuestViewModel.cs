@@ -20,7 +20,6 @@ namespace GeneretorQuests.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly IDialogManager _dialogManager;
         public DbDataOperation rep;
-        DBRepos d;
         private Quest selectedQuest;
         private Riddle selectedRiddle;
         private User User;
@@ -84,14 +83,45 @@ namespace GeneretorQuests.ViewModels
 
             }
         }
-        
-        public SelectQuestViewModel(IDialogManager dm, int q, User user)
+        private ICommand saveQuest;
+        public ICommand SaveQuest
+        {
+            get
+            {
+                return saveQuest ??
+                      (saveQuest = new RelayCommand(obj => Save()));
+
+            }
+        }
+        private void Save()
+        {
+             rep.UpdateQuest(SelectedQuest); 
+        }
+        public DBRepos d;
+        public SelectQuestViewModel(IDialogManager dm, int q, User user, DBRepos db)
         {
             _dialogManager = dm;
-            d = new DBRepos();
-            rep = new DbDataOperation(d);
-            selectedQuest = rep.GetQuest(q);
+            d = db;
             User = user;
+            rep = new DbDataOperation(d);
+            if (q != -1) selectedQuest = rep.GetQuest(q);
+            else
+            {
+                selectedQuest = new Quest
+                {
+                    Status = User.Access_level,
+                    Number_of_questions = 0,
+                    Thematics = "no",
+                    Id_Level_FK = 1,
+                    Id_Autor_FK = User.Id_user,
+                    User = User,
+                    Date = DateTime.Now,
+                    Level_of_complexity = rep.GetLevel(1)
+                };
+                rep.CreateQuest(selectedQuest);
+            }
+            
+            
             
         }
 

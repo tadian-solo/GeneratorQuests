@@ -17,7 +17,7 @@ namespace GeneretorQuests.Views
     /// <summary>
     /// Логика взаимодействия для Riddls.xaml
     /// </summary>
-    public partial class Riddls : Window
+    public partial class Riddls : UserControl
     {
         public Riddls()
         {

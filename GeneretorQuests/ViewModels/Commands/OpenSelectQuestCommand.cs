@@ -1,5 +1,6 @@
 ﻿
 using DAL;
+using GeneretorQuests.Models.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,13 @@ namespace GeneretorQuests.ViewModels.Commands
         private readonly IDialogManager _dialogManager;
         private User User;
         public int qm;
-        public OpenSelectQuestCommand(IDialogManager dialogManager, int q, User user)
+        public DBRepos db;
+        public OpenSelectQuestCommand(IDialogManager dialogManager, int q, User user, DBRepos d)
         {
             _dialogManager = dialogManager;
             qm =q;
             User = user;
+            db = d;
         }
         public event EventHandler CanExecuteChanged
         {
@@ -39,7 +42,7 @@ namespace GeneretorQuests.ViewModels.Commands
         }*/
         public void Execute(object parameter)
         {
-            var quest = new SelectQuestViewModel(_dialogManager, qm, User);
+            var quest = new SelectQuestViewModel(_dialogManager, qm, User, db);
             _dialogManager.Show(quest);
 
         }

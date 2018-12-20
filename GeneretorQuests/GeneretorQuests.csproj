@@ -67,8 +67,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\AllRiddlsViewModel.cs" />
     <Compile Include="ViewModels\Commands\OpenMainWindowCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenReadyQuestsCommand.cs" />
+    <Compile Include="ViewModels\Commands\OpenReadyRiddlsCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenSelectQuestCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenSelectRiddleCommand.cs" />
     <Compile Include="ViewModels\DialogManager.cs" />

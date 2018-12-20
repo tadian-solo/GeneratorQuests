@@ -27,6 +27,7 @@ namespace GeneretorQuests.Models.Repository
         {
             Quest k = db.Quest.Find(id);
             if (k != null) db.Quest.Remove(k);
+            db.SaveChanges();
         }
 
         public Quest GetItem(int id)

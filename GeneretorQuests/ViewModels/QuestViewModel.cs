@@ -1,4 +1,5 @@
-﻿using DAL; 
+﻿using BLL;
+using DAL; 
 using GeneretorQuests.Models.Repository;
 using GeneretorQuests.ViewModels.Commands;
 
@@ -12,7 +13,8 @@ namespace GeneretorQuests.ViewModels
     public class QuestViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public DBRepos rep;
+        public DbDataOperation rep;
+        public DBRepos db;
         private Quest selectedQuest;
         private User User;
        // private RiddleModel selectedRiddle;
@@ -22,20 +24,12 @@ namespace GeneretorQuests.ViewModels
         {
             _dialogManager = dialogManager;
             this.Quests = new ObservableCollection<Quest>();
-            rep = new DBRepos();
+            db = new DBRepos();
+            rep = new DbDataOperation(db);
             User = user;
-            Quests = rep.Quests.GetList();
+            Quests = rep.GetAllQuest();
         }
-        /*private ICommand openSelectRiddle;
-        public ICommand OpenSelectRiddle
-        {
-            get
-            {
-                if (openSelectRiddle == null) openSelectRiddle = new OpenSelectRiddleCommand(_dialogManager, SelectedRiddle);
-                return openSelectRiddle;
-            }
-        }*/
-
+        
         private ObservableCollection<Quest> _quests = null;
         public ObservableCollection<Quest> Quests
         {
@@ -71,50 +65,39 @@ namespace GeneretorQuests.ViewModels
             get
             {
                 return openSelectQuest ??
-                      (openSelectQuest = new RelayCommand(obj =>new OpenSelectQuestCommand(_dialogManager, selectedQuest.Id_quest, User).Execute(obj),
+                      (openSelectQuest = new RelayCommand(obj =>new OpenSelectQuestCommand(_dialogManager, selectedQuest.Id_quest, User, db).Execute(obj),
                       (obj) => SelectedQuest != null));
             }
             
         }
-        /*private OpenSelectQuestCommand openSelectQuest;
-        public OpenSelectQuestCommand OpenSelectQuest
+        private RelayCommand createQuest;
+        public RelayCommand CreateQuest
         {
             get
             {
-                if (openSelectQuest==null) openSelectQuest = new OpenSelectQuestCommand(_dialogManager, SelectedQuest);
-                if (openSelectQuest.qm != SelectedQuest) openSelectQuest.qm= SelectedQuest;
-                    return openSelectQuest;
+                return createQuest ??
+                      (createQuest = new RelayCommand(obj => new OpenSelectQuestCommand(_dialogManager, -1, User, db).Execute(obj)));
             }
-            set
-            {
-                if (openSelectQuest.qm != SelectedQuest) openSelectQuest.qm = SelectedQuest;
-            }
-        }*/
-        /*public RiddleModel SelectedRiddle
+
+        }
+        private RelayCommand deleteSelectQuest;
+        public RelayCommand DeleteSelectQuest
         {
-            get { return selectedRiddle; }
-            set
+            get
             {
-                selectedRiddle = value;
-                this.PropertyChanged(this, new PropertyChangedEventArgs("SelectedRiddle"));
+                return deleteSelectQuest ??
+                      (deleteSelectQuest = new RelayCommand(obj => DeleteQuest(), (obj) => SelectedQuest != null));
             }
 
-        }*/
-        /*public QuestViewModel()
+        }
+
+        private void DeleteQuest()
         {
+            rep.DeleteQuest(selectedQuest.Id_quest);
+        }
 
 
-            this.Quests = new ObservableCollection<QuestModel>();
-            rep = new DBRepos();
-            Quests = GetAllQuests();
-            /*ObservableCollection<Quest> quests =new ObservableCollection<Quest>();
-            quests= rep.Quests.GetList();
-            Records = ToQuestModel(quests);
 
-        }*/
 
-       
-        
-        
     }
 }
