@@ -51,6 +51,11 @@ namespace BLL
             return db.Answers.GetListForType(id, level);
         }
 
+        public void DetachRiddle(Riddle t)
+        {
+            db.Riddls.Detach(t);
+        }
+
         public void UpdateAnswer(Answer item)
         {
             Answer an = db.Answers.GetItem(item.Id_answer);
@@ -94,6 +99,7 @@ namespace BLL
         {
             Quest k = db.Quests.GetItem(id);
             if (k != null) db.Quests.Delete(k.Id_quest);
+
         }
 
         public Quest GetQuest(int id)
@@ -137,7 +143,7 @@ namespace BLL
         {
             Riddle k = db.Riddls.GetItem(id);
             if (k != null) db.Riddls.Delete(k.Id_riddle);
-            //db.Save();
+            db.Save();
         }
 
         public Riddle GetRiddle(int id)

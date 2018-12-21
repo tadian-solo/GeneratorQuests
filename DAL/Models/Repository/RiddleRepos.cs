@@ -75,7 +75,10 @@ namespace GeneretorQuests.Models.Repository
             
 
         }
-
+        public void Detach(Riddle item)
+        {
+            db.Entry(item).State = EntityState.Detached;
+        }
         public ObservableCollection<Riddle> GetListForQuest(int id)
         {
             Quest q = db.Quest.Find(id);

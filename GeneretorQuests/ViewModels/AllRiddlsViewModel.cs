@@ -68,6 +68,16 @@ namespace GeneretorQuests.ViewModels
 
             }
         }
+        private ICommand createRiddle;
+        public ICommand CreateRiddle
+        {
+            get
+            {
+                return createRiddle ??
+                      (createRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(d, _dialogManager, null, User, -1).Execute(obj)));
+
+            }
+        }
         private ICommand deleteSelectRiddle;
         public ICommand DeleteSelectRiddle//delete realy hehe
         {

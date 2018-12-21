@@ -114,9 +114,9 @@ namespace GeneretorQuests.ViewModels
                     Thematics = "no",
                     Id_Level_FK = 1,
                     Id_Autor_FK = User.Id_user,
-                    User = User,
+                    //User = User,
                     Date = DateTime.Now,
-                    Level_of_complexity = rep.GetLevel(1)
+                    //Level_of_complexity = rep.GetLevel(1)
                 };
                 rep.CreateQuest(selectedQuest);
             }

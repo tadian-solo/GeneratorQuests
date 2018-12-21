@@ -42,13 +42,14 @@ namespace GeneretorQuests.ViewModels
                 User = t.User,
                 Quest = t.Quest
             };
+            rep.DetachRiddle(t);
             if (questId!=-1)
             {
 
                 var q = rep.GetQuest(questId);
                 r.Quest.Add(q);
                 //q.Riddle.Add(r);
-                rep.UpdateQuest(q);
+               // rep.UpdateQuest(q);
             }
             rep.CreateRiddle(r);
         }
@@ -68,9 +69,9 @@ namespace GeneretorQuests.ViewModels
                 var q = rep.GetQuest(questId);
                 r.Quest.Add(q);
                 //q.Riddle.Add(r);
-                rep.UpdateQuest(q);
+                //rep.UpdateQuest(q);//
             }
-            rep.UpdateRiddle(r);
+           if(r!=rep.GetRiddle(r.Id_riddle)) rep.UpdateRiddle(r);
         }
     }
     public class RiddleViewModel : INotifyPropertyChanged
@@ -250,6 +251,7 @@ namespace GeneretorQuests.ViewModels
                 Types = rep.GetListTypeForLevel(id);
                 if (Types.Count != 0) selectedRiddle.Type_of_question = Types[0];
                 else { selectedRiddle.Id_Type_FK = -1; selectedRiddle.Id_Answer_FK = -1; }
+                OnTypeChange(selectedRiddle.Id_Type_FK, selectedRiddle.Id_Level_FK);
             }
             //else Types = rep.Types.GetList(); 
         }
