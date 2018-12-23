@@ -13,8 +13,9 @@ using System.Windows.Input;
 
 namespace GeneretorQuests.ViewModels
 {
-    public class AllRiddlsViewModel : INotifyPropertyChanged
+    public class AllRiddlsViewModel : BaseViewModel, INotifyPropertyChanged
     {
+        //public Action CloseAction { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly IDialogManager _dialogManager;
         public DbDataOperation rep;
@@ -63,7 +64,11 @@ namespace GeneretorQuests.ViewModels
             get
             {
                 return openSelectRiddle ??
-                      (openSelectRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(d, _dialogManager, selectedRiddle, User, -1).Execute(obj),
+                      (openSelectRiddle = new RelayCommand(obj =>
+                      {
+                          new OpenSelectRiddleCommand(d, _dialogManager, selectedRiddle, User, -1, true, false).Execute(obj);
+                          //CloseAction();
+                      },
                       (obj) => SelectedRiddle != null));
 
             }
@@ -74,7 +79,11 @@ namespace GeneretorQuests.ViewModels
             get
             {
                 return createRiddle ??
-                      (createRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(d, _dialogManager, null, User, -1).Execute(obj)));
+                      (createRiddle = new RelayCommand(obj =>
+                      {
+                          new OpenSelectRiddleCommand(d, _dialogManager, null, User, -1, true, true).Execute(obj);
+                          //CloseAction();
+                      }));
 
             }
         }
@@ -96,7 +105,7 @@ namespace GeneretorQuests.ViewModels
             
 
         }
-        private ICommand addRiddle;
+        /*private ICommand addRiddle;
         public ICommand AddRiddle
         {
             get
@@ -105,7 +114,7 @@ namespace GeneretorQuests.ViewModels
                       (addRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(d, _dialogManager, null, User, -1).Execute(obj)));
 
             }
-        }
+        }*/
         
         public DBRepos d;
         public AllRiddlsViewModel(IDialogManager dm,  User user)

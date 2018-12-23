@@ -11,8 +11,9 @@ using System.Windows.Input;
 
 namespace GeneretorQuests.ViewModels
 {
-    public class MyViewModel 
+    public class MyViewModel : BaseViewModel
     {
+        //public Action CloseAction { get; set; }
         //public event PropertyChangedEventHandler PropertyChanged;
         //public event EventHandler<EventArgs<QuestViewModel>> openQuests;
         private readonly User SelectUser;
@@ -23,23 +24,47 @@ namespace GeneretorQuests.ViewModels
             SelectUser = user;
 
         }
-        private ICommand openReadyQuests;
-        public ICommand OpenReadyQuests
+        private RelayCommand openReadyQuests;
+        public RelayCommand OpenReadyQuests
         {
             get
             {
-                if (openReadyQuests == null) openReadyQuests = new OpenReadyQuestsCommand(_dialogManager, SelectUser);
-                return openReadyQuests;
+                return openReadyQuests ??
+                      (openReadyQuests = new RelayCommand(obj =>
+                      {
+                          new OpenReadyQuestsCommand(_dialogManager, SelectUser).Execute(obj);
+                          CloseAction();
+                      }));
             }
+
         }
-        private ICommand openReadyRiddls;
-        public ICommand OpenReadyRiddls
+        private RelayCommand openReadyRiddls;
+        public RelayCommand OpenReadyRiddls
         {
             get
             {
-                if (openReadyRiddls == null) openReadyRiddls = new OpenReadyRiddlsCommand(_dialogManager, SelectUser);
-                return openReadyRiddls;
+                return openReadyRiddls ??
+                      (openReadyRiddls = new RelayCommand(obj =>
+                      {
+                          new OpenReadyRiddlsCommand(_dialogManager, SelectUser).Execute(obj);
+                          CloseAction();
+                      }));
             }
+
+        }
+        private RelayCommand getStatistics;
+        public RelayCommand GetStatistics
+        {
+            get
+            {
+                return getStatistics ??
+                      (getStatistics = new RelayCommand(obj =>
+                      {
+                          new OpenStatisticsCommand(_dialogManager).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
         }
     }
 

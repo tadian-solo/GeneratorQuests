@@ -14,13 +14,17 @@ namespace GeneretorQuests.ViewModels.Commands
         private Riddle selectRiddle;
         private User User;
         DBRepos d;
-        public OpenSelectRiddleCommand(DBRepos dd,IDialogManager dialogManager, Riddle riddle, User user, int id)
+        bool seeAll;
+        bool createOrUpdate;
+        public OpenSelectRiddleCommand(DBRepos dd,IDialogManager dialogManager, Riddle riddle, User user, int id, bool SeeAll, bool IsCreate)
         {
             selectRiddle = riddle;
             d = dd;
             User = user;
             _dialogManager = dialogManager;
             _id = id;
+            createOrUpdate = IsCreate;
+            seeAll = SeeAll;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -31,7 +35,7 @@ namespace GeneretorQuests.ViewModels.Commands
 
         public void Execute(object parameter)
         {
-            var riddle = new RiddleViewModel(d,selectRiddle, User, _id, true);
+            var riddle = new RiddleViewModel(d,selectRiddle, User, _id, seeAll, createOrUpdate);
             _dialogManager.Show(riddle);
 
         }

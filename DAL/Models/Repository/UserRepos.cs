@@ -47,5 +47,10 @@ namespace GeneretorQuests.Models.Repository
         {
             db.Entry(item).State = EntityState.Modified;
         }
+
+        public User GetTopUser()
+        {
+            return db.User.OrderByDescending(i => i.Quest.Count).FirstOrDefault();
+        }
     }
 }

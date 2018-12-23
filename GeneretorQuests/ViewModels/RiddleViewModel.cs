@@ -2,7 +2,6 @@
 using DAL;
 using GeneretorQuests.Models;
 using GeneretorQuests.Models.Repository;
-
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +15,7 @@ namespace GeneretorQuests.ViewModels
 {
     public interface ISave
     {
-        void Save(Riddle r, int questId);
+        void Save(Riddle r, int questId, User User);
     }
     public class CreateAndSave : ISave
     {
@@ -25,21 +24,21 @@ namespace GeneretorQuests.ViewModels
         {
             rep = r;
         }
-        public void Save(Riddle t, int questId)
+        public void Save(Riddle t, int questId, User User)
         {
             var r = new Riddle
             {
                 Text = t.Text,
                 Description = t.Description,
                 Status = t.Status,
-                Id_Autor_FK = t.Id_Autor_FK,
+                Id_Autor_FK = User.Id_user,
                 Id_Level_FK = t.Id_Level_FK,
                 Id_Answer_FK = t.Id_Answer_FK,
                 Id_Type_FK = t.Id_Type_FK,
                 Answer = t.Answer,
                 Level_of_complexity = t.Level_of_complexity,
                 Type_of_question = t.Type_of_question,
-                User = t.User,
+                //User = User,
                 Quest = t.Quest
             };
             rep.DetachRiddle(t);
@@ -49,9 +48,10 @@ namespace GeneretorQuests.ViewModels
                 var q = rep.GetQuest(questId);
                 r.Quest.Add(q);
                 //q.Riddle.Add(r);
-               // rep.UpdateQuest(q);
+                rep.CreateRiddle(r);
+                rep.UpdateQuest(q);
             }
-            rep.CreateRiddle(r);
+            else rep.CreateRiddle(r);
         }
     }
     public class UpdateAndSave : ISave
@@ -61,7 +61,7 @@ namespace GeneretorQuests.ViewModels
         {
             rep = r;
         }
-        public void Save(Riddle r, int questId)
+        public void Save(Riddle r, int questId, User User)
         {
             if (questId != -1)
             {
@@ -69,13 +69,15 @@ namespace GeneretorQuests.ViewModels
                 var q = rep.GetQuest(questId);
                 r.Quest.Add(q);
                 //q.Riddle.Add(r);
-                //rep.UpdateQuest(q);//
+                rep.UpdateRiddle(r);
+                rep.UpdateQuest(q);//
             }
-           if(r!=rep.GetRiddle(r.Id_riddle)) rep.UpdateRiddle(r);
+           else  rep.UpdateRiddle(r);
         }
     }
-    public class RiddleViewModel : INotifyPropertyChanged
+    public class RiddleViewModel : BaseViewModel, INotifyPropertyChanged
     {
+        //public Action CloseAction { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public DbDataOperation rep;
 
@@ -161,7 +163,9 @@ namespace GeneretorQuests.ViewModels
                     Levels = rep.GetAllLevel();
                     Types = rep.GetAllType();
                     Answers = rep.GetAllAnswer();
+                    seeAll = true;
                 }
+                
            }
         }
 
@@ -203,10 +207,11 @@ namespace GeneretorQuests.ViewModels
                 return saveRiddle ??
                       (saveRiddle = new RelayCommand(obj =>
                       {
-
-                          if ((User.Access_level || (User.Id_user == selectedRiddle.Id_Autor_FK)) && !isNewChecked) save = new UpdateAndSave(rep);
+                          OnAnswerChange(selectedAnswer.Id_answer, selectedLevel.Id_level, selectedType.Id_type);
+                          if (/*(User.Access_level || (User.Id_user == selectedRiddle.Id_Autor_FK)) && */!isNewChecked) save = new UpdateAndSave(rep);
                           else save = new CreateAndSave(rep);
-                          save.Save(selectedRiddle, quest_id);
+                          save.Save(selectedRiddle, quest_id, User);
+                          CloseAction();
                       }
                       ));
 
@@ -222,53 +227,63 @@ namespace GeneretorQuests.ViewModels
         }
         int quest_id;
         ISave save;
-        bool isNew;//добавляется в квест или просто создается
-        public RiddleViewModel(DBRepos d, Riddle r, User user, int id, bool IsCreated)
+        bool seeAll;
+
+        public RiddleViewModel(DBRepos d, Riddle r, User user, int id, bool SeeAll, bool CreateOrUpdate)
         {
             rep = new DbDataOperation(d);
             quest_id = id;
-            isNew = IsCreated;
-            selectedRiddle = r??new Riddle();//
-            isNewChecked = false;
-            User = user;
             Levels = new ObservableCollection<Level_of_complexity>();
             Levels = rep.GetAllLevel();
             Types = new ObservableCollection<Type_of_question>();
             Types = rep.GetAllType();
             Answers = new ObservableCollection<Answer>();
             Answers = rep.GetAllAnswer();
+            seeAll = SeeAll;
+            isNewChecked = CreateOrUpdate;
+            selectedRiddle = r??new Riddle();//
+            if (!CreateOrUpdate&&SeeAll)
+            {
+              SelectedLevel = r.Level_of_complexity;
+              SelectedType = r.Type_of_question;
+              SelectedAnswer = r.Answer;
+            }
+            else
+            {
+                SelectedLevel = Levels[0];
+            }
+           
+            User = user;
             newAnswer = new Answer();
-            SelectedLevel = SelectedRiddle.Level_of_complexity??Levels[0];
-            SelectedType = SelectedRiddle.Type_of_question??Types[0];
-            SelectedAnswer = SelectedRiddle.Answer??Answers[0];
+            
 
         }
 
         private void OnLevelChange(int id)
         {
-            if (!isNewChecked)
+            if (!seeAll)
             {
                 Types = rep.GetListTypeForLevel(id);
-                if (Types.Count != 0) selectedRiddle.Type_of_question = Types[0];
-                else { selectedRiddle.Id_Type_FK = -1; selectedRiddle.Id_Answer_FK = -1; }
-                OnTypeChange(selectedRiddle.Id_Type_FK, selectedRiddle.Id_Level_FK);
+                if (Types.Count != 0) SelectedType = Types[0];
+                else { SelectedType=null; SelectedAnswer =null; }
+                OnTypeChange(SelectedType.Id_type, SelectedLevel.Id_level);
             }
             //else Types = rep.Types.GetList(); 
         }
         private void OnTypeChange(int id, int level)
         {
-            if(!isNewChecked)
+            if(!seeAll)
           {
             Answers = rep.GetListAnswerForType(id, level);
-            if (Answers.Count!= 0) selectedRiddle.Answer = Answers[0];
-            else selectedRiddle.Id_Answer_FK = -1;
+            if (Answers.Count!= 0) SelectedAnswer = Answers[0];
+            else SelectedAnswer =null;
           }
            // else Answers = rep.Answers.GetList();
 
         }
         private void OnAnswerChange(int id, int level, int type)
         {
-            if (!isNewChecked)
+            if (!seeAll)
             {
                 Riddle r = rep.GetAllRiddle().Where(i => i.Id_Level_FK == level && i.Id_Type_FK == type && i.Id_Answer_FK == id).FirstOrDefault();
                 /*selectedRiddle.Text = r.Text; selectedRiddle.User=r.User; selectedRiddle.Description = r.Description; selectedRiddle.Status = r.Status; selectedRiddle.Quest = r.Quest;

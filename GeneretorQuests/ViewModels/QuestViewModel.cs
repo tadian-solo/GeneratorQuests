@@ -10,8 +10,9 @@ using System.Windows.Input;
 
 namespace GeneretorQuests.ViewModels
 {
-    public class QuestViewModel : INotifyPropertyChanged
+    public class QuestViewModel : BaseViewModel, INotifyPropertyChanged
     {
+      //  public Action CloseAction { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public DbDataOperation rep;
         public DBRepos db;
@@ -65,7 +66,10 @@ namespace GeneretorQuests.ViewModels
             get
             {
                 return openSelectQuest ??
-                      (openSelectQuest = new RelayCommand(obj =>new OpenSelectQuestCommand(_dialogManager, selectedQuest.Id_quest, User, db).Execute(obj),
+                      (openSelectQuest = new RelayCommand(obj =>
+                      { new OpenSelectQuestCommand(_dialogManager, selectedQuest.Id_quest, User, db).Execute(obj);
+                          CloseAction();  
+                      },
                       (obj) => SelectedQuest != null));
             }
             
@@ -76,7 +80,11 @@ namespace GeneretorQuests.ViewModels
             get
             {
                 return createQuest ??
-                      (createQuest = new RelayCommand(obj => new OpenSelectQuestCommand(_dialogManager, -1, User, db).Execute(obj)));
+                      (createQuest = new RelayCommand(obj =>
+                      {
+                          new OpenSelectQuestCommand(_dialogManager, -1, User, db).Execute(obj);
+                          CloseAction();
+                      }));
             }
 
         }

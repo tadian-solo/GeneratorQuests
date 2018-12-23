@@ -58,5 +58,14 @@ namespace GeneretorQuests.Models.Repository
             db.SaveChanges();
 
         }
+
+        public ObservableCollection<Quest> GetQuestsForYear(string year)
+        {
+            System.Data.SqlClient.SqlParameter param = new System.Data.SqlClient.SqlParameter("@year", year);
+            var result = db.Database.SqlQuery<Quest>($"select * from Quest where year(date)=@year", param).ToList();
+            var list = new ObservableCollection<Quest>();
+            foreach (var i in result) list.Add(db.Quest.Find(i.Id_quest));
+            return list;
+        }
     }
 }

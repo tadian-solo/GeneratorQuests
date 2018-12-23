@@ -84,6 +84,11 @@ namespace BLL
             return db.Levels.GetList();
         }
 
+        public ObservableCollection<Quest> GetQuestsForYear(string year)
+        {
+            return db.Quests.GetQuestsForYear(year);
+        }
+
         public void UpdateLevel(Level_of_complexity item)
         {
             Level_of_complexity l = db.Levels.GetItem(item.Id_level);
@@ -161,7 +166,7 @@ namespace BLL
             if (String.IsNullOrWhiteSpace(item.Description)) item.Description = GenerDescription();
            // Riddle r = db.Riddls.GetItem(item.Id_riddle);
             db.Riddls.Update(item);
-           
+            db.Save();
 
 
         }
@@ -205,6 +210,14 @@ namespace BLL
         {
             db.Users.Create(u);
             db.Save();
+        }
+        public User GetTopUser()
+        {
+            return db.Users.GetTopUser();
+        }
+        public ObservableCollection<Riddle> GetTopRiddls()
+        {
+            return db.Riddls.GetTopRiddls();
         }
     }
 }

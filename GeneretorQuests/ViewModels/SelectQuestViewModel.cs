@@ -15,8 +15,9 @@ using System.Windows.Input;
 
 namespace GeneretorQuests.ViewModels
 {
-   public class SelectQuestViewModel: INotifyPropertyChanged
+   public class SelectQuestViewModel : BaseViewModel, INotifyPropertyChanged
     {
+       // public Action CloseAction { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly IDialogManager _dialogManager;
         public DbDataOperation rep;
@@ -79,11 +80,18 @@ namespace GeneretorQuests.ViewModels
             get
             {
                 return addRiddle ??
-                      (addRiddle = new RelayCommand(obj => new OpenSelectRiddleCommand(d,_dialogManager, null, User, selectedQuest.Id_quest).Execute(obj)));
+                      (addRiddle = new RelayCommand(obj =>
+                      {
+                         
+                          new OpenSelectRiddleCommand(d, _dialogManager, null, User, selectedQuest.Id_quest, false, false).Execute(obj);
+                          //CloseAction();
+
+                      }));
 
             }
         }
-        private ICommand saveQuest;
+
+        private ICommand saveQuest;//
         public ICommand SaveQuest
         {
             get
@@ -120,12 +128,15 @@ namespace GeneretorQuests.ViewModels
                 };
                 rep.CreateQuest(selectedQuest);
             }
-            
+            selectedQuest.Updated += RefreshTable;
             
             
         }
 
-        
+        void RefreshTable()
+        {
+            SelectedQuest.Riddle = rep.GetListRiddleForQuest(selectedQuest.Id_quest);
+        }
         private ObservableCollection<Riddle> GetListForQuest(int Id_quest)
         {
             // ObservableCollection<RiddleModel> riddls = new ObservableCollection<RiddleModel>(rep.Riddls.GetList().SelectMany(u=>u.Quest, (u, q)=>new { Riddle=u, Quest=q}).Where(u=>u.Quest.Id_quest== Id_quest).Select(i => toRiddleModel(i)).ToList());

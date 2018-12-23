@@ -68,17 +68,20 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\AllRiddlsViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\Commands\OpenMainWindowCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenReadyQuestsCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenReadyRiddlsCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenSelectQuestCommand.cs" />
     <Compile Include="ViewModels\Commands\OpenSelectRiddleCommand.cs" />
+    <Compile Include="ViewModels\Commands\OpenStatisticsCommand.cs" />
     <Compile Include="ViewModels\DialogManager.cs" />
     <Compile Include="ViewModels\MyViewModel.cs" />
     <Compile Include="ViewModels\QuestViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\RiddleViewModel.cs" />
     <Compile Include="ViewModels\SelectQuestViewModel.cs" />
+    <Compile Include="ViewModels\StatisticsViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Views\DialogManager.cs" />
     <Compile Include="Views\ReadyQuests.xaml.cs">
@@ -92,6 +95,9 @@
     </Compile>
     <Compile Include="Views\SelectQuest.xaml.cs">
       <DependentUpon>SelectQuest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics.xaml.cs">
+      <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\User.xaml.cs">
       <DependentUpon>User.xaml</DependentUpon>
@@ -148,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SelectQuest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

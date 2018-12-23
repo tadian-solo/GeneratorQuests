@@ -15,8 +15,9 @@ using GeneretorQuests.ViewModels.Commands;
 
 namespace GeneretorQuests.ViewModels
 {
-   public class UserViewModel
+   public class UserViewModel : BaseViewModel
     {
+        //public Action CloseAction { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public DBRepos rep;
         private readonly IDialogManager _dialogManager;
@@ -41,8 +42,9 @@ namespace GeneretorQuests.ViewModels
             selectedUser= rep.Users.GetItemForLogin(Login);
             if (clearTextPassword == selectedUser.Password)
             {
+                
                 var window = new MyViewModel(_dialogManager, selectedUser);
-                _dialogManager.Show(window);
+                _dialogManager.Show(window); CloseAction();
             }
            
         }

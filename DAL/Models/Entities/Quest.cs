@@ -2,13 +2,14 @@ namespace DAL
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     
     [Table("Quest")]
-    public partial class Quest
+    public partial class Quest: INotifyPropertyChanged
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Quest()
@@ -16,6 +17,8 @@ namespace DAL
             Riddle = new HashSet<Riddle>();
         }
         public event PropertyChangedEventHandler PropertyChanged;
+        public delegate void UpdatedRiddls();
+        public event UpdatedRiddls Updated;
         [Key]
         public int Id_quest { get; set; }
         private bool status;
@@ -35,7 +38,7 @@ namespace DAL
             set
             {
                 number_of_questions = value;
-                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Number_of_questions"));
+                if (this.PropertyChanged != null) { Updated(); this.PropertyChanged(this, new PropertyChangedEventArgs("Number_of_questions")); }
             }
         }
         string thematics;
@@ -60,6 +63,15 @@ namespace DAL
         public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Riddle> Riddle { get; set; }
+        private ICollection<Riddle> riddle;
+        public virtual ICollection<Riddle> Riddle
+        {
+            get { return riddle; }
+            set
+            {
+                riddle = value;
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Riddle"));
+            }
+        }
     }
 }

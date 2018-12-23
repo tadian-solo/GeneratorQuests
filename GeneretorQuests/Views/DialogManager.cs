@@ -47,21 +47,22 @@ namespace GeneretorQuests.Views
                 throw new ArgumentException($"Key {key} wasn't registered", nameof(key));
 
             var view = _viewsByKey[key];
-           
+            var vm=viewModel as BaseViewModel;
             var window = new Window()
 
             {
 
                 Content = view,
 
-                DataContext = viewModel,
+                DataContext = vm,
 
                 Height = 400,
 
                 Width = 800,
 
-            };
 
+            };
+            vm.CloseAction = window.Close;
             window.Show();
 
         }

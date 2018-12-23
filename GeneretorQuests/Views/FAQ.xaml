@@ -31,7 +31,7 @@
         <Button Grid.Column="0" Grid.Row="0" Content="Войти в аккаунт" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50"  Margin="15,60,15.8,230.8"/>
         <Button Command="{Binding OpenReadyRiddls}" Grid.Column="0" Grid.Row="0" Content="Мои квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,120,15.8,172.8"/>
         <Button  Command="{Binding OpenReadyQuests}" Grid.Column="0" Grid.Row="0" Content="Готовые квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  MaxHeight="50" Margin="15,180,15.8,111.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,240,15.8,50.8"/>
+        <Button Command="{Binding GetStatistics}" Grid.Column="0" Grid.Row="0" Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,240,15.8,50.8"/>
         <ScrollViewer Grid.Column="1" Grid.Row="0">
             <TextBlock Grid.Column="1" Grid.Row="0"
                     FontFamily="Times New Roman"

@@ -86,12 +86,17 @@ namespace GeneretorQuests.Models.Repository
             foreach (var t in q.Riddle) rid.Add(db.Riddle.Find(t.Id_riddle));
             return rid;
         }
-        /*public string GenerDescription()
-        {
-            
-            return descriptions[r.Next(0, descriptions.Count)];
 
-        }*/
+        public ObservableCollection<Riddle> GetTopRiddls()
+        {
+            return new ObservableCollection<Riddle>(db.Riddle.OrderByDescending(i => i.Quest.Count).Take(3).ToList());
+        }
+        /*public string GenerDescription()
+{
+
+   return descriptions[r.Next(0, descriptions.Count)];
+
+}*/
 
         /*public void Save(bool access_level, bool isNewChecked, Riddle r)
         {

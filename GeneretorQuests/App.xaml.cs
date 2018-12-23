@@ -24,15 +24,19 @@ namespace GeneretorQuests
             dialog.Register<SelectQuestViewModel, SelectQuest>();
             dialog.Register<RiddleViewModel, Riddle>();
             dialog.Register<AllRiddlsViewModel, Riddls>();
+            dialog.Register<StatisticsViewModel, Statistics>();
             /*var mainWindow = new FAQ()
             {
                 DataContext = new MyViewModel(dialog)
             };
             mainWindow.Show();*/
+            var vm = new UserViewModel(dialog);
             var mainWindow = new User()
             {
-                DataContext = new UserViewModel(dialog)
+                DataContext = vm
             };
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(mainWindow.Close);
             mainWindow.Show();
         }
     }
