@@ -57,9 +57,16 @@ namespace DAL
         public int Id_Autor_FK { get; set; }
 
         public DateTime Date { get; set; }
-
-        public virtual Level_of_complexity Level_of_complexity { get; set; }
-
+        Level_of_complexity level_of_complexity;
+        public virtual Level_of_complexity Level_of_complexity
+        {
+            get { return level_of_complexity; }
+            set
+            {
+                level_of_complexity = value;
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Level_of_complexity"));
+            }
+        }
         public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

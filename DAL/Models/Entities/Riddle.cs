@@ -94,15 +94,37 @@ namespace DAL
             }
         }
         public int? Id_Image_FK { get; set; }
-
-        public virtual Answer Answer { get; set; }
-
+        Answer answer;
+        public virtual Answer Answer
+        {
+            get { return answer; }
+            set
+            {
+                answer = value;
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Answer"));
+            }
+        }
         public virtual Image Image { get; set; }
-
-        public virtual Level_of_complexity Level_of_complexity { get; set; }
-
-        public virtual Type_of_question Type_of_question { get; set; }
-
+        Level_of_complexity level_of_complexity;
+        public virtual Level_of_complexity Level_of_complexity
+        {
+            get { return level_of_complexity; }
+            set
+            {
+                level_of_complexity = value;
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Level_of_complexity"));
+            }
+        }
+        Type_of_question type_of_question;
+        public virtual Type_of_question Type_of_question
+        {
+            get { return type_of_question; }
+            set
+            {
+                type_of_question = value;
+                if (this.PropertyChanged != null) this.PropertyChanged(this, new PropertyChangedEventArgs("Type_of_question"));
+            }
+        }
         public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
