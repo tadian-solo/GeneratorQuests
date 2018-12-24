@@ -21,6 +21,48 @@ namespace GeneretorQuests.ViewModels
         public DbDataOperation rep;
         private Riddle selectedRiddle;
         private User User;
+        private RelayCommand openReadyQuests;
+        public RelayCommand OpenReadyQuests
+        {
+            get
+            {
+                return openReadyQuests ??
+                      (openReadyQuests = new RelayCommand(obj =>
+                      {
+                          new OpenReadyQuestsCommand(_dialogManager, User).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
+        private RelayCommand openMain;
+        public RelayCommand OpenMain
+        {
+            get
+            {
+                return openMain ??
+                      (openMain = new RelayCommand(obj =>
+                      {
+                          new OpenMainWindowCommand(_dialogManager, User).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
+        private RelayCommand getStatistics;
+        public RelayCommand GetStatistics
+        {
+            get
+            {
+                return getStatistics ??
+                      (getStatistics = new RelayCommand(obj =>
+                      {
+                          new OpenStatisticsCommand(_dialogManager, User).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
         private ObservableCollection<Riddle> riddls = null;
         public ObservableCollection<Riddle> Riddls
         {

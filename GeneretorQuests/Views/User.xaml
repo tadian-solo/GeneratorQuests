@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeneretorQuests.Views"
         mc:Ignorable="d"
-        Title="User"  Height="186.111" Width="269.444">
+        WindowStartupLocation="CenterScreen"
+        Title="Авторизация"  Height="200" Width="300" MinWidth="270" MinHeight="200" MaxWidth="450" MaxHeight="300">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Control.FontFamily" Value="Verdana" />
@@ -21,30 +22,26 @@
             </ImageBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0,3*"/>
+            <ColumnDefinition Width="0,5*"/>
+            <ColumnDefinition Width="0,6*"/>
+            <ColumnDefinition Width="0,3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="0,2*"/>
+            <RowDefinition Height="0,1*"/>
+            <RowDefinition Height="0,1*"/>
+            <RowDefinition Height="0,2*"/>
+            <RowDefinition Height="0,2*"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Text="Username:" Grid.Row="1" Grid.Column="0" />
-        <TextBlock Text="Password:" Grid.Row="2" Grid.Column="0" />
-        <TextBox Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" />
-        <PasswordBox x:Name="passwordBox" Grid.Row="2" Grid.Column="1" />
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-            <Button Content="Log in" Command="{Binding LoginCommand, Mode=OneTime}"
-            CommandParameter="{Binding ElementName=passwordBox}"
-            HorizontalAlignment="Center" />
-            <Button Content="Log out" Command="{Binding LogoutCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=passwordBox}"
-            
-            HorizontalAlignment="Center"/>
-        </StackPanel>
-        
+        <TextBlock  Grid.Row="0" Grid.Column="1" />
+        <TextBlock  FontSize="20"  Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva" Text="Username:" Grid.Row="1" Grid.Column="1" />
+        <TextBlock  FontSize="20" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva" Text="Password:" Grid.Row="2" Grid.Column="1" />
+        <TextBox Text="{Binding Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="2" />
+        <PasswordBox x:Name="passwordBox" Grid.Row="2" Grid.Column="2" />
+        <Button Content=" Войти " Command="{Binding LoginCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=passwordBox}" HorizontalAlignment="Stretch"
+            VerticalAlignment="Center" Height="Auto" Width="Auto" MinHeight="30" Grid.Row="3" Grid.Column="1"  />
+        <Button Content="Регистрация" Command="{Binding LogoutCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=passwordBox}" HorizontalAlignment="Stretch"
+            VerticalAlignment="Center" MinHeight="30" Grid.Row="3" Grid.Column="2"  />
     </Grid>
 </Window>

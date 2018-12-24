@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,11 @@ namespace GeneretorQuests.ViewModels.Commands
    public class OpenMainWindowCommand:ICommand
     {
         private readonly IDialogManager _dialogManager;
-        public OpenMainWindowCommand(IDialogManager dialogManager)
+        User User;
+        public OpenMainWindowCommand(IDialogManager dialogManager, User u)
         {
             _dialogManager = dialogManager;
+            User = u;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -23,8 +26,8 @@ namespace GeneretorQuests.ViewModels.Commands
 
         public void Execute(object parameter)
         {
-          /*  var window = new MyViewModel(_dialogManager);
-            _dialogManager.Show(window);*/
+            var quest = new MyViewModel(_dialogManager, User);
+            _dialogManager.Show(quest);
 
         }
     }

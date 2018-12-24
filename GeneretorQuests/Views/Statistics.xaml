@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeneretorQuests.Views"
-        mc:Ignorable="d" Height="400" d:DesignWidth="800"
+        mc:Ignorable="d" 
        >
     <UserControl.Resources>
         <Style TargetType="Button">
@@ -21,78 +21,67 @@
             </ImageBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"></ColumnDefinition>
-
+            <ColumnDefinition Width="0.35*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Content="Войти в аккаунт" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50"  Margin="15,60,15.8,230.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Мои квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,120,15.8,172.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Готовые квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  MaxHeight="50" Margin="15,180,15.8,111.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,240,15.8,50.8"/>
-
-        <TextBlock Grid.Column="1" Grid.Row="0"
+        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" >
+            <Image  Margin="10,-10"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled1.png" 
+             HorizontalAlignment="Stretch"  />
+            <Button  Command="{Binding OpenMain}" Content="Главная" HorizontalAlignment="Stretch"   MinHeight="55" />
+            <Button Command="{Binding OpenReadyRiddls}" Content="Загадки" HorizontalAlignment="Stretch"   MinHeight="55"/>
+            <Button  Command="{Binding OpenReadyQuests}" Content="Квесты" HorizontalAlignment="Stretch"    MinHeight="55" />
+            <Button   Content="Статистика" HorizontalAlignment="Stretch"   MinHeight="55" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0">
+            <TextBlock 
                     FontFamily="Times New Roman"
                     FontSize="14"
                     TextWrapping="Wrap"
-                    TextAlignment="Justify"
-                    Margin="15.6,15,15,231"
+                    TextAlignment="Justify"  
                    BaselineOffset="10">
-      <Run FontSize="25" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva">  ТОП-3 загадок: </Run>  <LineBreak />
+      <Run FontSize="20" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva">  ТОП-3 загадок: </Run>  <LineBreak />
+            </TextBlock>
+            <DataGrid ScrollViewer.CanContentScroll="False"  Name="riddls" Opacity="0.7" GridLinesVisibility="None"   ItemsSource="{Binding Riddls}" AutoGenerateColumns="False">
 
-        </TextBlock>
+                <DataGrid.Columns>
 
-        <DataGrid ScrollViewer.CanContentScroll="False"  Name="riddls" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="10.6,60,15,231" ItemsSource="{Binding Riddls}" AutoGenerateColumns="False">
+                    <DataGridTextColumn Header="Текст" Binding="{Binding Text}" />
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
+                    <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
+                    <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
+                    <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
+                </DataGrid.Columns>
 
-            <DataGrid.Columns>
-
-                <DataGridTextColumn Header="Текст" Binding="{Binding Text}" />
-                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
-                <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
-                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
-                <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
-                <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
-                <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
-            </DataGrid.Columns>
-
-        </DataGrid>
-        <TextBlock Grid.Column="1" Grid.Row="0"
-                    FontFamily="Times New Roman"
-                    FontSize="14"
-                    TextWrapping="Wrap"
-                    TextAlignment="Justify"
-                    Margin="9.6,174,192,173"
-                   BaselineOffset="10">
-      <Run FontSize="25" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva">  Самый активный пользователь: </Run>  <LineBreak />
-
-        </TextBlock>
-        <TextBlock Text="{Binding User.Name}" Grid.Column="1" Margin="346.6,174,81,197"></TextBlock>
-
-        <Image Grid.Column="0"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled.png"
-                    Stretch="Fill"
-             HorizontalAlignment="Stretch" Margin="33,-30,36.8,290.4" VerticalAlignment="Stretch" MaxHeight="100" />
-        <TextBlock Grid.Column="1" Grid.Row="0"
+            </DataGrid>
+            <TextBlock Text="{Binding StringFormat=Самый активный пользователь:{0}, Path=User.Name}" FontSize="20" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva" TextWrapping="Wrap" TextAlignment="Justify" BaselineOffset="10"/>
+            <TextBlock 
                 FontFamily="Times New Roman"
                 FontSize="14"
                 TextWrapping="Wrap"
-                TextAlignment="Justify"
-                Margin="11.6,221,369,126"
-                BaselineOffset="10"><Run FontSize="25" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva" Text="Квесты за год:"/><LineBreak /></TextBlock>
-        <TextBox Text="{Binding Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="169.6,221,266,151" Grid.Column="1"></TextBox>
-        <Button Command="{Binding GetQuestsForYear}"  CommandParameter="Year"  Content="Вывести" Margin="299.6,221,137,151" Grid.Column="1"></Button>
-        <DataGrid ScrollViewer.CanContentScroll="False"  Name="quests" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="11.6,260,15,22" ItemsSource="{Binding Quests}" AutoGenerateColumns="false">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Номер квеста" Binding="{Binding Id_quest}" />
-                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
-                <DataGridTextColumn Header="Количество вопросов" Binding="{Binding Number_of_questions}" />
-                <DataGridTextColumn Header="Тематика" Binding="{Binding Thematics}" />
-                <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
-                <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
-                <DataGridTextColumn Header="Дата добавления" Binding="{Binding Date}" />
-            </DataGrid.Columns>
+                TextAlignment="Justify" BaselineOffset="10"><Run FontSize="20" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva" Text="Квесты за год:"/></TextBlock>
+            <StackPanel Orientation="Horizontal"><TextBox MinWidth="100" Height="20" Text="{Binding Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Button Command="{Binding GetQuestsForYear}"  CommandParameter="Year"  Content="Вывести" ></Button>
+            </StackPanel>
+            
+            <DataGrid ScrollViewer.CanContentScroll="False"  Name="quests" Opacity="0.7" GridLinesVisibility="None"   ItemsSource="{Binding Quests}" AutoGenerateColumns="false" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Номер квеста" Binding="{Binding Id_quest}" />
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
+                    <DataGridTextColumn Header="Количество вопросов" Binding="{Binding Number_of_questions}" />
+                    <DataGridTextColumn Header="Тематика" Binding="{Binding Thematics}" />
+                    <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
+                    <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
+                    <DataGridTextColumn Header="Дата добавления" Binding="{Binding Date}" />
+                </DataGrid.Columns>
             </DataGrid>
+        </StackPanel>
     </Grid>
 
 </UserControl>

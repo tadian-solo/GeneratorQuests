@@ -132,7 +132,62 @@ namespace GeneretorQuests.ViewModels
             
             
         }
+        private RelayCommand openReadyQuests;
+        public RelayCommand OpenReadyQuests
+        {
+            get
+            {
+                return openReadyQuests ??
+                      (openReadyQuests = new RelayCommand(obj =>
+                      {
+                          new OpenReadyQuestsCommand(_dialogManager, User).Execute(obj);
+                          CloseAction();
+                      }));
+            }
 
+        }
+        private RelayCommand openReadyRiddls;
+        public RelayCommand OpenReadyRiddls
+        {
+            get
+            {
+                return openReadyRiddls ??
+                      (openReadyRiddls = new RelayCommand(obj =>
+                      {
+                          new OpenReadyRiddlsCommand(_dialogManager, User).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
+        private RelayCommand openMain;
+        public RelayCommand OpenMain
+        {
+            get
+            {
+                return openMain ??
+                      (openMain = new RelayCommand(obj =>
+                      {
+                          new OpenMainWindowCommand(_dialogManager, User).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
+        private RelayCommand getStatistics;
+        public RelayCommand GetStatistics
+        {
+            get
+            {
+                return getStatistics ??
+                      (getStatistics = new RelayCommand(obj =>
+                      {
+                          new OpenStatisticsCommand(_dialogManager, User).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
         void RefreshTable()
         {
             SelectedQuest.Riddle = rep.GetListRiddleForQuest(selectedQuest.Id_quest);

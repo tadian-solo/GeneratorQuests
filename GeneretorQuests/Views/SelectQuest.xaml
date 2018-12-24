@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeneretorQuests.Views"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
+        mc:Ignorable="d" 
          >
     <UserControl.Resources>
         <Style TargetType="Button">
@@ -30,75 +30,75 @@
             </ImageBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"></ColumnDefinition>
-
+            <ColumnDefinition Width="0.4*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Grid.Row="0" Content="Войти в аккаунт" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50"  Margin="15,60,15.8,230.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Загадки" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,120,15.8,172.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Готовые квесты" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"  MaxHeight="50" Margin="15,180,15.8,111.8"/>
-        <Button Grid.Column="0" Grid.Row="0" Content="Создать квест" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" MaxHeight="50" Margin="15,240,15.8,50.8"/>
-        <WrapPanel Grid.Column="1" Grid.Row="0" DataContext="{Binding SelectedQuest}" Orientation="Horizontal" Margin="0.2,50,-0.4,239.4">
-            <TextBlock Text="Status:"/>
-            <TextBox  
- Text="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
-            </TextBox>
-            <TextBlock Text="Количество вопросов:"/>
-            <TextBox  
- Text="{Binding Number_of_questions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            </TextBox>
-            <TextBlock Text="Тематика:"/>
-            <TextBox  
- Text="{Binding Thematics, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            </TextBox>
-            <TextBlock Text="Уровень сложности:"/>
-            <TextBox   
- Text="{Binding Level_of_complexity.Name_level, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            </TextBox>
-            <TextBlock Text="Автор:"/>
-            <TextBox  
- Text="{Binding User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            </TextBox>
-            <TextBlock Text="Дата создания:"/>
-            <TextBox 
- Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            </TextBox>
-
-        </WrapPanel>
-        <TextBlock Grid.Column="1" Grid.Row="0"  FontSize="23" Foreground="MediumSlateBlue" 
- Text="Вопросы в квесте:" Margin="0.2,131,183.6,35.4"/>
-        <TextBlock Grid.Column="1" Grid.Row="0"
+        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" >
+            <Image  Margin="10,-10"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled1.png" 
+             HorizontalAlignment="Stretch"  />
+            <Button  Command="{Binding OpenMain}" Content="Главная" HorizontalAlignment="Stretch"   MinHeight="55" />
+            <Button Command="{Binding OpenReadyRiddls}" Content="Загадки" HorizontalAlignment="Stretch"   MinHeight="55"/>
+            <Button  Command="{Binding OpenReadyQuests}" Content="Квесты" HorizontalAlignment="Stretch"    MinHeight="55" />
+            <Button Command="{Binding GetStatistics}"  Content="Статистика" HorizontalAlignment="Stretch"   MinHeight="55" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" Height="Auto">
+            <TextBlock 
                    FontSize="25"
                     TextWrapping="Wrap"
                     TextAlignment="Justify"
-                    Margin="163.2,10,9.6,320.4"
+                    
                    BaselineOffset="10"
                    Foreground="MediumSlateBlue" 
                    FontWeight="Bold" 
                    FontFamily="Monotype Corsiva"
             Text="{Binding SelectedQuest.Id_quest, StringFormat=Квест № {0}}">
-        </TextBlock>
-        <DataGrid ScrollViewer.CanContentScroll="False" SelectedItem="{Binding SelectedRiddle}"  Name="riddls" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="0.6,162,10,70" ItemsSource="{Binding SelectedQuest.Riddle}" AutoGenerateColumns="False">
+            </TextBlock>
+            <WrapPanel  DataContext="{Binding SelectedQuest}" Orientation="Horizontal">
+                <TextBlock Text="Статус:"/>
+                <TextBlock  Text="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" Foreground="MediumSlateBlue" >
+                </TextBlock>
+                <TextBlock Text="Количество вопросов:"/>
+                <TextBlock Text="{Binding Number_of_questions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="MediumSlateBlue">
+                </TextBlock>
+                <TextBlock Text="Тематика:"/>
+                <TextBox  
+ Text="{Binding Thematics, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="Black">
+                </TextBox>
+                <TextBlock Text="Уровень сложности:"/>
+                <TextBlock Text="{Binding Level_of_complexity.Name_level, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="MediumSlateBlue">
+                </TextBlock>
+                <TextBlock Text="Автор:"/>
+                <TextBlock Text="{Binding User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="MediumSlateBlue">
+                </TextBlock>
+                <TextBlock Text="Дата создания:"/>
+                <TextBlock Text="{Binding StringFormat={}{0:d}, Path=Date}" Foreground="MediumSlateBlue">
+                </TextBlock>
 
-            <DataGrid.Columns>
+            </WrapPanel>
+            <TextBlock  FontSize="23" Foreground="MediumSlateBlue" Text="Вопросы в квесте:"/>
+            <DataGrid ScrollViewer.CanContentScroll="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" SelectedItem="{Binding SelectedRiddle}"  x:Name="riddls" Opacity="0.7" GridLinesVisibility="None" Margin="0,0,10.2,0" ItemsSource="{Binding SelectedQuest.Riddle}" AutoGenerateColumns="False"  Height="Auto">
 
-                <DataGridTextColumn Header="Текст" Binding="{Binding Text}" />
-                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
-                <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
-                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
-                <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
-                <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
-                <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Image Grid.Column="0"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled.png"
-                    Stretch="Fill"
-             HorizontalAlignment="Stretch" Margin="33,-30,36.8,290.4" VerticalAlignment="Stretch" MaxHeight="100" />
-        <Button  Command="{Binding OpenSelectRiddle}"  CommandParameter="SelectedRiddle"  Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="103.2,335,0,0" VerticalAlignment="Top" Width="103"/>
-        <Button Command="{Binding AddRiddle}"  Content="Добавить" Grid.Column="1" HorizontalAlignment="Left" Margin="10.2,335,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button  Command="{Binding SaveQuest}" Content="Сохранить" Grid.Column="1" HorizontalAlignment="Left" Margin="224.2,335,0,0" VerticalAlignment="Top" Width="75"/>
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Текст" Binding="{Binding Text}" />
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
+                    <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
+                    <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
+                    <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <DockPanel Grid.Column="1" Grid.Row="1">
+            <Button  Command="{Binding OpenSelectRiddle}"  CommandParameter="SelectedRiddle"  Content="Удалить"  HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75"/>
+            <Button Command="{Binding AddRiddle}"  Content="Добавить"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+            <Button  Command="{Binding SaveQuest}" Content="Сохранить"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+        </DockPanel>
     </Grid>
 </UserControl>

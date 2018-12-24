@@ -1,6 +1,7 @@
 ﻿using BLL;
 using DAL;
 using GeneretorQuests.Models.Repository;
+using GeneretorQuests.ViewModels.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -48,10 +49,11 @@ namespace GeneretorQuests.ViewModels
             }
         }
 
-
-        public StatisticsViewModel(IDialogManager dialogManager)
+        User SelUser;
+        public StatisticsViewModel(IDialogManager dialogManager, User u)
         {
             _dialogManager = dialogManager;
+            SelUser = u;
             db = new DBRepos();
             rep = new DbDataOperation(db);
             Riddls = rep.GetTopRiddls();
@@ -59,7 +61,48 @@ namespace GeneretorQuests.ViewModels
             Quests = new ObservableCollection<Quest>();
             //Quests = rep.GetAllQuest();
         }
+        private RelayCommand openReadyQuests;
+        public RelayCommand OpenReadyQuests
+        {
+            get
+            {
+                return openReadyQuests ??
+                      (openReadyQuests = new RelayCommand(obj =>
+                      {
+                          new OpenReadyQuestsCommand(_dialogManager, SelUser).Execute(obj);
+                          CloseAction();
+                      }));
+            }
 
+        }
+        private RelayCommand openReadyRiddls;
+        public RelayCommand OpenReadyRiddls
+        {
+            get
+            {
+                return openReadyRiddls ??
+                      (openReadyRiddls = new RelayCommand(obj =>
+                      {
+                          new OpenReadyRiddlsCommand(_dialogManager, SelUser).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
+        private RelayCommand openMain;
+        public RelayCommand OpenMain
+        {
+            get
+            {
+                return openMain ??
+                      (openMain = new RelayCommand(obj =>
+                      {
+                          new OpenMainWindowCommand(_dialogManager, SelUser).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
         private ICommand getQuestsForYear;
         public ICommand GetQuestsForYear
         {

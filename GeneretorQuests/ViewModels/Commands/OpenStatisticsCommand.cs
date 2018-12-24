@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,11 @@ namespace GeneretorQuests.ViewModels.Commands
     public class OpenStatisticsCommand : ICommand
     {
         private readonly IDialogManager _dialogManager;
-        public OpenStatisticsCommand(IDialogManager dialogManager)
+        User User;
+        public OpenStatisticsCommand(IDialogManager dialogManager, User u)
         {
             _dialogManager = dialogManager;
+            User = u;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -24,7 +27,7 @@ namespace GeneretorQuests.ViewModels.Commands
 
         public void Execute(object parameter)
         {
-             var window = new StatisticsViewModel(_dialogManager);
+             var window = new StatisticsViewModel(_dialogManager, User);
               _dialogManager.Show(window);
 
         }

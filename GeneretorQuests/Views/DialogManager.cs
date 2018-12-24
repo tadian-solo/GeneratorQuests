@@ -60,6 +60,9 @@ namespace GeneretorQuests.Views
 
                 Width = 800,
 
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                Title="Генератор квестов"
+
 
             };
             vm.CloseAction = window.Close;

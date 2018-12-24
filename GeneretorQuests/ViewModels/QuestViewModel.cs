@@ -30,7 +30,48 @@ namespace GeneretorQuests.ViewModels
             User = user;
             Quests = rep.GetAllQuest();
         }
-        
+        private RelayCommand openMain;
+        public RelayCommand OpenMain
+        {
+            get
+            {
+                return openMain ??
+                      (openMain = new RelayCommand(obj =>
+                      {
+                          new OpenMainWindowCommand(_dialogManager, User).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
+        private RelayCommand openReadyRiddls;
+        public RelayCommand OpenReadyRiddls
+        {
+            get
+            {
+                return openReadyRiddls ??
+                      (openReadyRiddls = new RelayCommand(obj =>
+                      {
+                          new OpenReadyRiddlsCommand(_dialogManager, User).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
+        private RelayCommand getStatistics;
+        public RelayCommand GetStatistics
+        {
+            get
+            {
+                return getStatistics ??
+                      (getStatistics = new RelayCommand(obj =>
+                      {
+                          new OpenStatisticsCommand(_dialogManager, User).Execute(obj);
+                          CloseAction();
+                      }));
+            }
+
+        }
         private ObservableCollection<Quest> _quests = null;
         public ObservableCollection<Quest> Quests
         {

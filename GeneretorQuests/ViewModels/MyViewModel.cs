@@ -60,7 +60,7 @@ namespace GeneretorQuests.ViewModels
                 return getStatistics ??
                       (getStatistics = new RelayCommand(obj =>
                       {
-                          new OpenStatisticsCommand(_dialogManager).Execute(obj);
+                          new OpenStatisticsCommand(_dialogManager, SelectUser).Execute(obj);
                           CloseAction();
                       }));
             }

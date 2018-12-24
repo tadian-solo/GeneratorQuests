@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using BLL;
@@ -40,13 +41,15 @@ namespace GeneretorQuests.ViewModels
             string clearTextPassword = passwordBox.Password;
            
             selectedUser= rep.Users.GetItemForLogin(Login);
-            if (clearTextPassword == selectedUser.Password)
+            if (selectedUser == null) MessageBox.Show("Упс!Пользователя с таким логином не найдено. Проверьте введенные данные и попробуйте еще раз.");
+            else if (clearTextPassword == selectedUser.Password)
             {
                 
                 var window = new MyViewModel(_dialogManager, selectedUser);
                 _dialogManager.Show(window); CloseAction();
             }
-           
+            else MessageBox.Show("Упс!Пароль не верен. Проверьте введенные данные и попробуйте еще раз.");
+
         }
         private void Logout(object parameter)
         {
