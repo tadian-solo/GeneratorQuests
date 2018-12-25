@@ -17,9 +17,10 @@
     </UserControl.Resources>
     <Grid >
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\1.jpg"
-                    Stretch="Fill">
-            </ImageBrush>
+            <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                <GradientStop Color="#79BAEC" Offset="0" />
+                <GradientStop Color="White" Offset="1" />
+            </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -29,7 +30,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" >
-            <Image  Margin="10,-10"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled1.png" 
+            <Image  Margin="10,-10"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneretorQuests2\GeneretorQuests\bin\Debug\untitled1.png" 
              HorizontalAlignment="Stretch"  />
             <Button  Content="Главная" HorizontalAlignment="Stretch"   MinHeight="55" />
             <Button Command="{Binding OpenReadyRiddls}" Content="Загадки" HorizontalAlignment="Stretch"   MinHeight="55"/>
@@ -68,7 +69,7 @@
   <Run FontSize="20" Foreground="Blue" FontWeight="Bold" FontFamily="Monotype Corsiva">*Сколько заданий должно быть в квесте?</Run><LineBreak />  
 Оптимальное количество этапов – от 6 до 10: большее количество может сделать квест утомительным, а меньшее — слишком скоротечным.<LineBreak />  
             Но это, конечно же, общая рекомендация — возможно, у вас получится замечательный квест, состоящий из 5 этапов (если задания сложные) или, наоборот, из 15 этапов.<LineBreak />  
- <Run FontSize="17" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva"> Квест можно сделать ещё более приятным и увлекательным, если по ходу его выполнения будет несколько подарков  
+ <Run FontSize="20" Foreground="Blue" FontWeight="Bold" FontFamily="Monotype Corsiva"> Квест можно сделать ещё более приятным и увлекательным, если по ходу его выполнения будет несколько подарков  
      (пусть задания сопровождаются шоколадками или мелкими сувенирами).
        </Run></TextBlock>
             </ScrollViewer>

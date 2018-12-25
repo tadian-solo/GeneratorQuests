@@ -16,9 +16,10 @@
     </UserControl.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\1.jpg"
-                    Stretch="Fill">
-            </ImageBrush>
+            <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                <GradientStop Color="#79BAEC" Offset="0" />
+                <GradientStop Color="White" Offset="1" />
+            </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
 
@@ -30,7 +31,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" >
-            <Image  Margin="10,-10"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\untitled1.png" 
+            <Image  Margin="10,-10"  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneretorQuests2\GeneretorQuests\bin\Debug\untitled1.png" 
              HorizontalAlignment="Stretch"  />
             <Button  Command="{Binding OpenMain}" Content="Главная" HorizontalAlignment="Stretch"   MinHeight="55" />
             <Button Command="{Binding OpenReadyRiddls}" Content="Загадки" HorizontalAlignment="Stretch"   MinHeight="55"/>
@@ -50,8 +51,20 @@
 
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="Текст" Binding="{Binding Text}" />
-                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Текст" Binding="{Binding Text}" MaxWidth="150">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" MaxWidth="150">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
                     <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
                     <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />

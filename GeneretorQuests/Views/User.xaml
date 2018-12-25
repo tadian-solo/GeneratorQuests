@@ -17,9 +17,10 @@
     </Window.Resources>
     <Grid >
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneratorQ\GeneratorQ\bin\Debug\1.jpg"
-                    Stretch="Fill">
-            </ImageBrush>
+            <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                <GradientStop Color="#79BAEC" Offset="0" />
+                <GradientStop Color="White" Offset="1" />
+            </LinearGradientBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0,3*"/>
