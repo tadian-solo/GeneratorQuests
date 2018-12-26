@@ -50,8 +50,12 @@
             <DataGrid ScrollViewer.CanContentScroll="False"  Name="riddls" Opacity="0.7" GridLinesVisibility="None"   ItemsSource="{Binding Riddls}" AutoGenerateColumns="False">
 
                 <DataGrid.Columns>
-
-                    <DataGridTextColumn Header="Текст" Binding="{Binding Text}" MaxWidth="150">
+                    <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
+                    <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
+                    <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
+                    <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
+                    <DataGridTextColumn Header="Текст" Binding="{Binding Text}" MaxWidth="200">
                         <DataGridTextColumn.EditingElementStyle>
                             <Style>
                                 <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
@@ -65,11 +69,7 @@
                             </Style>
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
-                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
-                    <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
-                    <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
-                    <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
+
                 </DataGrid.Columns>
 
             </DataGrid>
@@ -85,12 +85,11 @@
             
             <DataGrid ScrollViewer.CanContentScroll="False"  Name="quests" Opacity="0.7" GridLinesVisibility="None"   ItemsSource="{Binding Quests}" AutoGenerateColumns="false" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Номер квеста" Binding="{Binding Id_quest}" />
+                    <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
                     <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
                     <DataGridTextColumn Header="Количество вопросов" Binding="{Binding Number_of_questions}" />
                     <DataGridTextColumn Header="Тематика" Binding="{Binding Thematics}" />
                     <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
-                    <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
                     <DataGridTextColumn Header="Дата добавления" Binding="{Binding Date}" />
                 </DataGrid.Columns>
             </DataGrid>

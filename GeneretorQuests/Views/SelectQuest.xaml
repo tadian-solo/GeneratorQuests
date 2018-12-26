@@ -82,18 +82,13 @@
 
             </WrapPanel>
             <TextBlock  FontSize="23" Foreground="MediumSlateBlue" Text="Вопросы в квесте:"/>
-            <DataGrid ScrollViewer.CanContentScroll="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" SelectedItem="{Binding SelectedRiddle}"  x:Name="riddls" Opacity="0.7" GridLinesVisibility="None" Margin="0,0,10.2,0" ItemsSource="{Binding SelectedQuest.Riddle}" AutoGenerateColumns="False"  Height="Auto">
-
+            <DataGrid ScrollViewer.CanContentScroll="False" HorizontalScrollBarVisibility="Auto" IsReadOnly="True" VerticalScrollBarVisibility="Auto" SelectedItem="{Binding SelectedRiddle}"  x:Name="riddls" Opacity="0.7" GridLinesVisibility="None" Margin="0,0,10.2,0" ItemsSource="{Binding SelectedQuest.Riddle}" AutoGenerateColumns="False"  Height="Auto">
                 <DataGrid.Columns>
-
-                    <DataGridTextColumn Header="Текст" Binding="{Binding Text}" MaxWidth="150">
-                        <DataGridTextColumn.EditingElementStyle>
-                            <Style>
-                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                                
-                            </Style>
-                        </DataGridTextColumn.EditingElementStyle>
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
+                    <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
+                    <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
+                    <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
                     <DataGridTextColumn Header="Описание" Binding="{Binding Description}" MaxWidth="150">
                         <DataGridTextColumn.EditingElementStyle>
                             <Style>
@@ -101,12 +96,17 @@
                             </Style>
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Ответ" Binding="{Binding Answer.Object}" />
-                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
-                    <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
-                    <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
-                    <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
+                    <DataGridTextColumn Header="Текст" Binding="{Binding Text}">
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    
+
                 </DataGrid.Columns>
+
             </DataGrid>
         </StackPanel>
         <DockPanel Grid.Column="1" Grid.Row="1">

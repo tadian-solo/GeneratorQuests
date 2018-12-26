@@ -34,61 +34,65 @@
             <RowDefinition Height="0.1*"></RowDefinition>
             <RowDefinition Height="0.1*"></RowDefinition>
             <RowDefinition Height="0.1*"></RowDefinition>
-            <RowDefinition Height="0.1*"></RowDefinition>
-            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="0.1*"></RowDefinition>
             <RowDefinition Height="0.2*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.8*"></ColumnDefinition>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
             <ColumnDefinition Width="0.3*"></ColumnDefinition>
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock FontSize="25" Foreground="MediumSlateBlue" HorizontalAlignment="Center" Grid.Column="0"  Grid.Row="1" Text="Подарок, преподнесенный с улыбкой, ценен вдвойне" />
-
-        <WrapPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock  Text="Уровень:"/>
-            <ComboBox 
+        <TextBlock FontSize="25" Foreground="MediumSlateBlue" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3"  Grid.Row="1" Text="Подарок, преподнесенный с улыбкой, ценен вдвойне" />
+        
+           
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="Уровень:"/>
+        <ComboBox Grid.Column="2" Grid.Row="2"
            ItemsSource="{Binding Levels}" 
            DisplayMemberPath="Name_level" 
            SelectedValuePath="Id_level" 
            SelectedItem="{Binding SelectedLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        </WrapPanel>
-        <WrapPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock  Text="Тип вопроса:"/>
-            <ComboBox 
+            
+           
+            <TextBlock  Grid.Column="1" Grid.Row="3" Text="Тип вопроса:"/>
+        <ComboBox Grid.Column="2" Grid.Row="3"
            ItemsSource="{Binding Types}" 
            DisplayMemberPath="Name" 
            SelectedValuePath="Id_type" 
            SelectedItem="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        </WrapPanel>
-        <WrapPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock  Text="Ответ:"/>
-            <ComboBox 
+           
+          
+            <TextBlock  Grid.Column="1" Grid.Row="4"  Text="Ответ:"/>
+        <ComboBox  Grid.Column="2" Grid.Row="4" 
            ItemsSource="{Binding Answers}" 
            DisplayMemberPath="Object" 
            SelectedValuePath="Id_answer" 
            SelectedItem="{Binding SelectedAnswer, UpdateSourceTrigger=PropertyChanged}" 
            IsEditable="True"/>
-        </WrapPanel>
-        <WrapPanel Grid.Column="0" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Text="Текст:"/>
-            <TextBox Text="{Binding SelectedRiddle.Text}" MinWidth="100" MaxWidth="250" TextWrapping="Wrap" AcceptsReturn="True" />
-        </WrapPanel>
-        <WrapPanel Grid.Column="0" Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock  Text="Вступление:"/>
-            <TextBox Text="{Binding SelectedRiddle.Description}"  MinWidth="100" MaxWidth="250" TextWrapping="Wrap" AcceptsReturn="True"/>
-        </WrapPanel>
-        <WrapPanel Grid.Column="0" Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock  Text="Статус:"/>
-            <TextBlock Text="{Binding SelectedRiddle.Status}"/>
-            <TextBlock  Text="Автор:"/>
-            <TextBlock   Text="{Binding SelectedRiddle.User.Name}"/>
-        </WrapPanel>
-        <CheckBox x:Name="CheckBox2" IsChecked="{Binding IsNewChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Content="Создать с нуля" Grid.Column="1" Grid.ColumnSpan="2" Margin="10.4,9.8,56,18.8" Grid.RowSpan="2" />
-        <CheckBox x:Name="CheckBox1" Grid.Row="4" Content="Добавить свой ответ " Grid.Column="1" Grid.ColumnSpan="2" Margin="10.4,5.4,56,23.4" Grid.RowSpan="2" />
-        <TextBox x:Name="tb1" Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Text="{Binding NewAnswer.Object, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,FallbackValue=Введите ответ}" HorizontalAlignment="Center">
+            
+           
+            <TextBlock Grid.Column="1" Grid.Row="5" Text="Текст:"/>
+        <TextBox Grid.Column="2" Grid.Row="5" Text="{Binding SelectedRiddle.Text}"  TextWrapping="Wrap" AcceptsReturn="True" />
+           
+            
+            <TextBlock Grid.Column="1" Grid.Row="6"  Text="Вступление:"/>
+        <TextBox Grid.Column="2" Grid.Row="6" Text="{Binding SelectedRiddle.Description}"   TextWrapping="Wrap" AcceptsReturn="True"/>
+           
+            <WrapPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock  Text="Статус:"/>
+                <TextBlock Text="{Binding SelectedRiddle.Status}"/>
+                <TextBlock  Text="Автор:"/>
+                <TextBlock   Text="{Binding SelectedRiddle.User.Name}"/>
+            </WrapPanel>
+        
+
+        <CheckBox x:Name="CheckBox2" IsChecked="{Binding IsNewChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Content="Создать с нуля" Grid.Column="3" Grid.ColumnSpan="2" Margin="10.4,9.8,56,18.8" Grid.RowSpan="2" />
+        <CheckBox x:Name="CheckBox1" Grid.Row="4" Content="Добавить свой ответ " Grid.Column="3" Grid.ColumnSpan="2" Margin="10.4,5.4,56,23.4" Grid.RowSpan="2" />
+        <TextBox x:Name="tb1" Grid.Column="3" Grid.Row="5" TextWrapping="Wrap" Text="{Binding NewAnswer.Object, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,FallbackValue=Введите ответ}" HorizontalAlignment="Center">
             <TextBox.Style>
                 <Style>
                     <Setter Property="TextBox.Visibility" Value="Hidden" />
@@ -100,7 +104,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Button Command="{Binding AddNewAnswer}" CommandParameter="NewAnswer"  Content="Добавить" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center">
+        <Button Command="{Binding AddNewAnswer}" CommandParameter="NewAnswer"  Content="Добавить" Grid.Column="3" Grid.Row="6" HorizontalAlignment="Center">
             <Button.Style>
                 <Style>
                     <Setter Property="Button.Visibility" Value="Hidden" />
@@ -117,8 +121,8 @@
             </Button.Style>
         </Button>
         <Image  Source="C:\Users\Татьяна\Documents\Visual Studio 2017\Projects\GeneretorQuests2\GeneretorQuests\bin\Debug\forest2.png"
-                    Stretch="Fill" Grid.ColumnSpan="3" Grid.Row="0" />
+                    Stretch="Fill" Grid.ColumnSpan="5" Grid.Row="0" />
 
-        <Button Command="{Binding SaveRiddle}" Content="Сохранить" Grid.Column="1" Grid.Row="8"   Width="85" Height="25" ></Button>
+        <Button Command="{Binding SaveRiddle}" Content="Сохранить" Grid.Column="3" Grid.Row="8"   Width="85" Height="25" ></Button>
     </Grid>
 </UserControl>

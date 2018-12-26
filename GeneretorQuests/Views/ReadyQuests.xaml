@@ -47,15 +47,14 @@
       <Run FontSize="25" Foreground="MediumSlateBlue" FontWeight="Bold" FontFamily="Monotype Corsiva">  Список квестов: </Run>  <LineBreak />
 
         </TextBlock>
-
+        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Мои квесты" Margin="471,23,37.4,306.6" Grid.Column="1" Grid.Row="0"  />
         <DataGrid ScrollViewer.CanContentScroll="False" SelectedItem="{Binding SelectedQuest}"  Name="quests" Opacity="0.7" GridLinesVisibility="None"  Grid.Column="1" Grid.Row="0" Margin="13,60,11.4,10" ItemsSource="{Binding Quests}" AutoGenerateColumns="false">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Номер квеста" Binding="{Binding Id_quest}" />
+                <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
                 <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
                 <DataGridTextColumn Header="Количество вопросов" Binding="{Binding Number_of_questions}" />
                 <DataGridTextColumn Header="Тематика" Binding="{Binding Thematics}" />
                 <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
-                <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
                 <DataGridTextColumn Header="Дата добавления" Binding="{Binding Date}" />
             </DataGrid.Columns>
 
