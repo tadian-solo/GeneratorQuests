@@ -55,7 +55,7 @@
                 <DataGridTextColumn Header="Количество вопросов" Binding="{Binding Number_of_questions}" />
                 <DataGridTextColumn Header="Тематика" Binding="{Binding Thematics}" />
                 <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
-                <DataGridTextColumn Header="Дата добавления" Binding="{Binding Date}" />
+                <DataGridTextColumn Header="Дата добавления" Binding="{Binding StringFormat={}{0:d}, Path=Date}" />
             </DataGrid.Columns>
 
         </DataGrid>

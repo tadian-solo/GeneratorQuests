@@ -58,7 +58,7 @@ namespace GeneretorQuests.Views
 
                 Height = 500,
 
-                Width = 900,
+                Width = 880,
 
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
                 Title="Генератор квестов"

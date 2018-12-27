@@ -89,7 +89,7 @@
                     <DataGridTextColumn Header="Уровень сложности" Binding="{Binding Level_of_complexity.Name_level}" />
                     <DataGridTextColumn Header="Тип вопроса" Binding="{Binding Type_of_question.Name}" />
                     <DataGridTextColumn Header="Автор" Binding="{Binding User.Name}" />
-                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" MaxWidth="150">
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="Auto">
                         <DataGridTextColumn.EditingElementStyle>
                             <Style>
                                 <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
