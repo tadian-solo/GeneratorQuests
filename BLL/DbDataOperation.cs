@@ -123,8 +123,11 @@ namespace BLL
             item.Number_of_questions = item.Riddle.Count;
             int sum=0;
             foreach (var r in item.Riddle) sum += r.Id_Level_FK;
-            item.Level_of_complexity = GetLevel(sum/ item.Riddle.Count);
-            item.Id_Level_FK = item.Level_of_complexity.Id_level;
+            if(item.Riddle.Count!=0)
+            {   
+                item.Level_of_complexity = GetLevel(sum/ item.Riddle.Count);
+                item.Id_Level_FK = item.Level_of_complexity.Id_level;
+            }
             db.Quests.Update(item);
             
         }

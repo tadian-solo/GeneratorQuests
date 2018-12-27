@@ -90,7 +90,7 @@ namespace GeneretorQuests.ViewModels
             }
 
         }
-        private bool added;
+      /*  private bool added;
         public bool Added
         {
             get { return added; }
@@ -99,7 +99,7 @@ namespace GeneretorQuests.ViewModels
                 added = value;
                 this.PropertyChanged(this, new PropertyChangedEventArgs("Added"));
             }
-        }
+        }*/
         private ICommand openSelectRiddle;
         public ICommand OpenSelectRiddle
         {

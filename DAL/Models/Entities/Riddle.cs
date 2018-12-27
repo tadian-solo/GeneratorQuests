@@ -8,7 +8,7 @@ namespace DAL
     using System.Data.Entity.Spatial;
 
     [Table("Riddle")]
-    public partial class Riddle
+    public partial class Riddle: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

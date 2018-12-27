@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace GeneretorQuests.ViewModels
@@ -207,16 +208,26 @@ namespace GeneretorQuests.ViewModels
                 return saveRiddle ??
                       (saveRiddle = new RelayCommand(obj =>
                       {
-                          OnAnswerChange(selectedAnswer.Id_answer, selectedLevel.Id_level, selectedType.Id_type);
-                          if (/*(User.Access_level || (User.Id_user == selectedRiddle.Id_Autor_FK)) && */!isNewChecked) save = new UpdateAndSave(rep);
-                          else save = new CreateAndSave(rep);
-                          save.Save(selectedRiddle, quest_id, User);
-                          CloseAction();
+                          //OnAnswerChange(selectedAnswer.Id_answer, selectedLevel.Id_level, selectedType.Id_type);
+                          if (verify())
+                          {
+                              OnAnswerChange(selectedAnswer.Id_answer, selectedLevel.Id_level, selectedType.Id_type);
+                              if (/*(User.Access_level || (User.Id_user == selectedRiddle.Id_Autor_FK)) && */!isNewChecked) save = new UpdateAndSave(rep);
+                              else save = new CreateAndSave(rep);
+                              save.Save(selectedRiddle, quest_id, User);
+                              CloseAction();
+                          }
+                          else MessageBox.Show("Пожалуйста, заполните все поля");
                       }
                       ));
 
 
             }
+        }
+        bool verify()
+        {
+            if (selectedRiddle.Level_of_complexity == null || selectedRiddle.Answer == null || selectedRiddle.Text == null || selectedRiddle.Type_of_question == null) return false;
+            else return true;
         }
         void OnAddAnswer(Answer a)
         {
